@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
+import Clock from './Clock.js';
 
 class Counter extends Component {
   props: {
@@ -34,6 +35,7 @@ class Counter extends Component {
           <button className={styles.btn} onClick={incrementIfOdd} data-tclass="btn">odd</button>
           <button className={styles.btn} onClick={() => incrementAsync()} data-tclass="btn">async</button>
         </div>
+        <Clock />
       </div>
     );
   }
