@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var app = express();
 var bodyParser = require('body-parser');
 var boards = require('./app/routes/boards.js');
@@ -6,6 +7,8 @@ var swimlanes = require('./app/routes/swimlanes.js');
 var tasks = require('./app/routes/tasks.js');
 var teams = require('./app/routes/teams.js');
 var users = require('./app/routes/users.js');
+
+mongoose.connect('mongodb://localhost:27017/solid_disco',{useMongoClient: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -16,7 +19,7 @@ var router = express.Router();
 
 //middleware
 router.use(function(req, res, next){
-    console.log('api called');
+    console.log('sexy api called');
     next();
 });
 

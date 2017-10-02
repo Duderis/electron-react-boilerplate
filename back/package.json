@@ -2,8 +2,11 @@
   "name": "node_back",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
-    "mongoose": "^4.11.12"
+    "mongoose": "^4.11.12",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0"
   }
 }

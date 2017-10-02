@@ -1,27 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var boardController = require('../controllers/board.js')
 
 //BOARDS-----------------------
 router.route('/boards')
 
-    .post(function(req,res){
-        res.json({messege: 'called /boards POST api'})
-    })
-    .get(function(req,res){
-        res.json({messege: 'called /boards GET api'})
-    });
+    .post(boardController.postBoards)
+    .get(boardController.getBoards);
 
 router.route('/boards/:board_id')
 
-    .get(function(req,res){
-        res.json({messege: 'called /boards/:board_id GET api with value:' + req.params.board_id});
-    })
-    .put(function(req,res){
-        res.json({messege: 'called /boards/:board_id PUT api with value:' + req.params.board_id})
-    })
-    .delete(function(req,res){
-        res.json({messege: 'called /boards/:board_id DELETE api with value:' + req.params.board_id})
-    });
+    .get(boardController.getBoard)
+    .put(boardController.putBoard)
+    .delete(boardController.deleteBoard);
 //END_BOARDS-------------------
 
 module.exports = router;

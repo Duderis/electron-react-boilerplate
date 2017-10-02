@@ -1,27 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var userController = require('../controllers/user.js');
 
-//BOARDS-----------------------
 router.route('/users')
 
-    .post(function(req,res){
-        res.json({messege: 'called /users POST api'})
-    })
-    .get(function(req,res){
-        res.json({messege: 'called /users GET api'})
-    });
+    .post(userController.postUsers)
+    .get(userController.getUsers);
 
 router.route('/users/:user_id')
 
-    .get(function(req,res){
-        res.json({messege: 'called /users/:user_id GET api with value:' + req.params.user_id});
-    })
-    .put(function(req,res){
-        res.json({messege: 'called /users/:user_id PUT api with value:' + req.params.user_id})
-    })
-    .delete(function(req,res){
-        res.json({messege: 'called /users/:user_id DELETE api with value:' + req.params.user_id})
-    });
-//END_BOARDS-------------------
+    .get(userController.getUser)
+    .put(userController.putUser)
+    .delete(userController.deleteUser);
 
 module.exports = router;

@@ -1,26 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var swimlaneController = require('../controllers/swimlane.js');
 
 //SWIMLANES-----------------------
 router.route('/swimlanes')
 
-    .post(function(req,res){
-        res.json({messege: 'called /swimlanes POST api'})
-    })
-    .get(function(req,res){
-        res.json({messege: 'called /swimlanes GET api'})
-    });
+    .post(swimlaneController.postSwimlanes)
+    .get(swimlaneController.getSwimlanes);
 
 router.route('/swimlanes/:swimlane_id')
 
-    .get(function(req,res){
-        res.json({messege: 'called /swimlanes/:swimlane_id GET api with value:' + req.params.swimlane_id});
-    })
-    .put(function(req,res){
-        res.json({messege: 'called /swimlanes/:swimlane_id PUT api with value:' + req.params.swimlane_id})
-    })
-    .delete(function(req,res){
-        res.json({messege: 'called /swimlanes/:swimlane_id DELETE api with value:' + req.params.swimlane_id})
-    });
+    .get(swimlaneController.getSwimlane)
+    .put(swimlaneController.putSwimlane)
+    .delete(swimlaneController.deleteSwimlane);
 //END_SWIMLANES-------------------
 module.exports=router;
