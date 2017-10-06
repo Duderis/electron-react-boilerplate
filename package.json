@@ -71,10 +71,6 @@
       "output": "release"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
-  },
   "author": {
     "name": "Marius Ambrazevicius"
   },
