@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var taskController = require('../controllers/task.js');
+var authController = require('../controllers/auth');
 
 //TASKS-----------------------
 router.route('/tasks')
 
-    .post(taskController.postTasks)
-    .get(taskController.getTasks);
+    .post(authController.isAuthenticated, taskController.postTasks)
+    .get(authController.isAuthenticated, taskController.getTasks);
 
 router.route('/tasks/:task_id')
 

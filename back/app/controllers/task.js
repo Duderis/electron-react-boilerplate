@@ -1,21 +1,63 @@
 var Task = require('../models/task.js');
 
 exports.postTasks = function(req,res){
-        res.json({messege: 'called /tasks POST api'})
+  var task = new Task({
+    name: req.body.name,
+    description: req.body.description || null,
+    points: req.body.points || null,
+    duration: req.body.duration || null,
+    createdBy: req.user._id
+  });
+  task.save(function(err){
+    if(err)
+      res.send(err);
+    else
+      res.json({message: 'task: '+task.name+' created'});
+  });
 }
 
 exports.getTasks = function(req,res){
-        res.json({messege: 'called /tasks GET api'})
+  Task.find(function(err, tasks){
+    if(err)
+      res.send(err);
+    else
+      res.json(tasks);
+  });
 }
 
 exports.getTask = function(req,res){
-        res.json({messege: 'called /tasks/:task_id GET api with value:' + req.params.task_id});
+  Task.findOne({taskId: req.params.task_id}, (err,task)=>{
+    if(err)
+      res.send(err);
+    else
+      res.json(task);
+  })
 }
 
 exports.putTask = function(req,res){
-        res.json({messege: 'called /tasks/:task_id PUT api with value:' + req.params.task_id})
+  Task.findOne({taskId: req.params.task_id}, (err,task)=>{
+    if(err)
+      res.send(err);
+    else {
+      task.name = req.body.name || task.name;
+      task.description = req.body.description || task.description;
+      task.points = req.body.points || task.points;
+      task.duration = req.body.duration || task.duration;
+      task.save(err=>{
+        if(err)
+          res.send(err);
+        else
+          res.json(task);
+      });
+    }
+  });
 }
 
 exports.deleteTask = function(req,res){
-        res.json({messege: 'called /tasks/:task_id DELETE api with value:' + req.params.task_id})
+  Task.findOneAndRemove({taskId: req.params.taskId}, err => {
+    if(err)
+      res.send(err);
+    else
+      res.json({ message: 'Task with id '+ req.params.task_id +' was successfully removed.'});
+  });
 }
