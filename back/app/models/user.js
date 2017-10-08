@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
 var bcrypt = require('bcrypt-nodejs');
 
 var UserSchema = new mongoose.Schema({
@@ -10,8 +11,15 @@ var UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    userId: {
+      type: Number,
+      required: true
     }
 });
+
+UserSchema.plugin(autoIncrement.plugin, {model: 'User', field: 'userId'})
+
 UserSchema.pre('save', function(callback){
     var user = this;
     if(!user.isModified('password')) return callback();

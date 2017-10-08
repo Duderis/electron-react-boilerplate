@@ -21,13 +21,32 @@ exports.getUsers = function(req,res){
 }
 
 exports.getUser = function(req,res){
-        res.json({messege: 'called /users/:user_id GET api with value:' + req.params.user_id});
+    User.findOne({userId: req.params.user_id} (err,user)=>{
+      if(err)
+        res.send(err);
+      else
+        res.json(user);
+    })
 }
 
 exports.putUser = function(req,res){
-        res.json({messege: 'called /users/:user_id PUT api with value:' + req.params.user_id})
+    User.findOne({userId: req.params.user_id} (err,user) =>{
+      if(err)
+        res.send(err);
+      else {
+        if(req.body.password){
+          user.password = req.body.password;
+          user.save(err=>{
+            if(err)
+              res.send(err);
+            else
+              res.json('Updated '+user.username+' password.');
+          });
+        }
+      }
+    });
 }
 
 exports.deleteUser = function(req,res){
-        res.json({messege: 'called /users/:user_id DELETE api with value:' + req.params.user_id})
+        res.json({messege: 'cant do that, bro'})
 }

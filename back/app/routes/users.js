@@ -10,8 +10,8 @@ router.route('/users')
 
 router.route('/users/:user_id')
 
-    .get(userController.getUser)
-    .put(userController.putUser)
+    .get(authController.isAuthenticated, userController.getUser)
+    .put(authController.isAuthenticated, userController.putUser)
     .delete(userController.deleteUser);
 
 module.exports = router;
