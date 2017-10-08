@@ -1,5 +1,5 @@
+var arrUniq = require('../utils');
 var Board = require('../models/board.js');
-import {arrUniq} from '../utils';
 
 exports.postBoards = function(req,res){
   var board = new Board({

@@ -21,30 +21,32 @@ exports.getUsers = function(req,res){
 }
 
 exports.getUser = function(req,res){
-    User.findOne({userId: req.params.user_id} (err,user)=>{
-      if(err)
-        res.send(err);
-      else
-        res.json(user);
-    })
+  user_id = req.params.user_id;
+  User.findOne({userId: user_id}, function(err,user){
+    if(err)
+      res.send(err);
+    else
+      res.json(user);
+  })
 }
 
 exports.putUser = function(req,res){
-    User.findOne({userId: req.params.user_id} (err,user) =>{
-      if(err)
-        res.send(err);
-      else {
-        if(req.body.password){
-          user.password = req.body.password;
-          user.save(err=>{
-            if(err)
-              res.send(err);
-            else
-              res.json('Updated '+user.username+' password.');
-          });
-        }
+  user_id = req.params.user_id;
+  User.findOne({userId: user_id}, function(err,user){
+    if(err)
+      res.send(err);
+    else {
+      if(req.body.password){
+        user.password = req.body.password;
+        user.save(err=>{
+          if(err)
+            res.send(err);
+          else
+            res.json('Updated '+user.username+' password.');
+        });
       }
-    });
+    }
+  });
 }
 
 exports.deleteUser = function(req,res){

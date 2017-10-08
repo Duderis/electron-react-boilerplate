@@ -1,5 +1,6 @@
+var arrUniq = require('../utils');
 var Team = require('../models/team.js');
-import {arrUniq} from '../utils';
+
 
 exports.postTeams = function(req,res){
   var team = new Team({

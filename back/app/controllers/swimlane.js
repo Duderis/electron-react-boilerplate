@@ -1,5 +1,6 @@
+var arrUniq = require('../utils');
 var Swimlane = require('../models/swimlane.js');
-import {arrUniq} from '../utils';
+
 
 exports.postSwimlanes = function(req,res){
   var lane = new Swimlane({

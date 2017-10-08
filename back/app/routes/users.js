@@ -6,7 +6,7 @@ var authController = require('../controllers/auth.js');
 router.route('/users')
 
     .post(userController.postUsers)
-    .get(authController.isAuthenticated, userController.getUsers);
+    .get(userController.getUsers);
 
 router.route('/users/:user_id')
 
