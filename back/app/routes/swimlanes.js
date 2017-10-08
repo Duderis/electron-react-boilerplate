@@ -1,17 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var swimlaneController = require('../controllers/swimlane.js');
+var authController = require('../controllers/auth');
+
 
 //SWIMLANES-----------------------
 router.route('/swimlanes')
 
-    .post(swimlaneController.postSwimlanes)
-    .get(swimlaneController.getSwimlanes);
+    .post(authController.isAuthenticated, swimlaneController.postSwimlanes)
+    .get(authController.isAuthenticated, swimlaneController.getSwimlanes);
 
 router.route('/swimlanes/:swimlane_id')
 
-    .get(swimlaneController.getSwimlane)
-    .put(swimlaneController.putSwimlane)
-    .delete(swimlaneController.deleteSwimlane);
+    .get(authController.isAuthenticated, swimlaneController.getSwimlane)
+    .put(authController.isAuthenticated, swimlaneController.putSwimlane)
+    .delete(authController.isAuthenticated, swimlaneController.deleteSwimlane);
 //END_SWIMLANES-------------------
 module.exports=router;

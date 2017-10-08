@@ -1,18 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var boardController = require('../controllers/board.js')
+var authController = require('../controllers/auth');
 
 //BOARDS-----------------------
 router.route('/boards')
 
-    .post(boardController.postBoards)
-    .get(boardController.getBoards);
+    .post(authController.isAuthenticated, boardController.postBoards)
+    .get(authController.isAuthenticated, boardController.getBoards);
 
 router.route('/boards/:board_id')
 
-    .get(boardController.getBoard)
-    .put(boardController.putBoard)
-    .delete(boardController.deleteBoard);
+    .get(authController.isAuthenticated, boardController.getBoard)
+    .put(authController.isAuthenticated, boardController.putBoard)
+    .delete(authController.isAuthenticated, boardController.deleteBoard);
 //END_BOARDS-------------------
 
 module.exports = router;

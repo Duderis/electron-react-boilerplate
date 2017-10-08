@@ -1,21 +1,68 @@
 var Team = require('../models/team.js');
+import {arrUniq} from '../utils';
 
 exports.postTeams = function(req,res){
-        res.json({messege: 'called /teams POST api'})
+  var team = new Team({
+    name: req.body.teamName,
+    users: [],
+    boards: []
+  });
+  if(req.body.addCurrent){
+    team.users.push(req.user._id);
+  }
+  team.save(err=>{
+    if(err)
+      res.send(err);
+    else
+      res.json(team);
+  })
 }
 
 exports.getTeams = function(req,res){
-        res.json({messege: 'called /teams GET api'})
+  Team.find((err,teams)=>{
+    if(err)
+      res.send(err);
+    else
+      res.json(teams);
+  });
 }
 
 exports.getTeam = function(req,res){
-        res.json({messege: 'called /teams/:team_id GET api with value:' + req.params.team_id});
+  Team.findOne({teamId: req.params.team_id}, (err,team)=>{
+    if(err)
+      res.send(err);
+    else
+      res.json(team);
+  })
 }
 
 exports.putTeam = function(req,res){
-        res.json({messege: 'called /teams/:team_id PUT api with value:' + req.params.team_id})
+  Team.findOne({teamId: req.params.team_id}, (err,team)=>{
+    if(err)
+      res.send(err);
+    else{
+      team.name = req.body.name || team.name;
+      if(req.body.users){
+        team.users = arrUniq(team.users.concat(req.body.users));
+      }
+      if(req.body.boards){
+        team.boards = arrUniq(team.boards.concat(req.body.boards));
+      }
+      team.save(err=>{
+        if(err)
+          res.send(err);
+        else
+          res.json(team);
+      })
+    }
+  })
 }
 
 exports.deleteTeam = function(req,res){
-        res.json({messege: 'called /teams/:team_id DELETE api with value:' + req.params.team_id})
+  Team.findOneAndRemove({teamId: req.params.team_id}, err=>{
+    if(err)
+      res.send(err);
+    else
+      res.json({message: 'deleted Team'});
+  })
 }
