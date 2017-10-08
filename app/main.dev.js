@@ -10,8 +10,10 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+const electronOauth2 = require('electron-oauth2');
+const oauthConfig = require('./config').oauth;
 
 let mainWindow = null;
 
@@ -44,6 +46,15 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
+const oauth2WindowParams= {
+  alwaysOnTop: true,
+  autoHideMenuBar: true,
+  webPreferences:{
+    nodeIntegration:false
+  }
+}
+
+const myOauth2 = electronOauth2(oauthConfig, oauth2WindowParams);
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
@@ -84,3 +95,12 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 });
+
+ipcMain.on('my-oauth', (event,arg) => {
+  myOauth2.getAccessToken({})
+    .then(token => {
+      event.sender.send('my-oauth-reply', token)
+    }, err => {
+      console.log('Error while getting token', err)
+    })
+})
