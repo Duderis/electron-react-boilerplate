@@ -7,8 +7,8 @@ import {ipcRenderer} from 'electron';
 export default class Home extends Component {
   oauth2Button(){
     ipcRenderer.send('my-oauth', 'getToken');
-    ipcRenderer.once('my-oauth-reply',(event,args)=>{
-      
+    ipcRenderer.once('my-oauth-reply',(event,{accessToken})=>{
+      console.log(accessToken);
     })
   }
   render() {

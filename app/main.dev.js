@@ -63,8 +63,6 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
-
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
@@ -99,7 +97,8 @@ app.on('ready', async () => {
 ipcMain.on('my-oauth', (event,arg) => {
   myOauth2.getAccessToken({})
     .then(token => {
-      event.sender.send('my-oauth-reply', token)
+      console.log(token);
+      //event.sender.send('my-oauth-reply', token)
     }, err => {
       console.log('Error while getting token', err)
     })
