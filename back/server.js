@@ -47,13 +47,13 @@ var oauth2 = require('./app/routes/oauth2.js');
 
 app.use('/api',router);
 
-app.use('/api',boards);
-app.use('/api',swimlanes);
-app.use('/api',tasks);
-app.use('/api',teams);
-app.use('/api',users);
-app.use('/api',clients);
-app.use('/api',oauth2);
+app.use(boards);
+app.use(swimlanes);
+app.use(tasks);
+app.use(teams);
+app.use(users);
+app.use(clients);
+app.use(oauth2);
 
 app.listen(port);
 console.log('Server on '+ port);

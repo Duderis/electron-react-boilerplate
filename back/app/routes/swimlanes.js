@@ -5,12 +5,12 @@ var authController = require('../controllers/auth');
 
 
 //SWIMLANES-----------------------
-router.route('/swimlanes')
+router.route('/api/swimlanes')
 
     .post(authController.isAuthenticated, swimlaneController.postSwimlanes)
     .get(authController.isAuthenticated, swimlaneController.getSwimlanes);
 
-router.route('/swimlanes/:swimlane_id')
+router.route('/api/swimlanes/:swimlane_id')
 
     .get(authController.isAuthenticated, swimlaneController.getSwimlane)
     .put(authController.isAuthenticated, swimlaneController.putSwimlane)

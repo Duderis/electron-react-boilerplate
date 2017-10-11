@@ -3,7 +3,7 @@ var router = express.Router();
 var clientController = require('../controllers/client.js');
 var authController = require('../controllers/auth');
 
-router.route('/clients')
+router.route('/api/clients')
     .post(authController.isAuthenticated, clientController.postClients)
     .get(authController.isAuthenticated, clientController.getClients);
 

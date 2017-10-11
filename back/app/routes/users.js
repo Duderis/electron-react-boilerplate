@@ -3,12 +3,12 @@ var router = express.Router();
 var userController = require('../controllers/user.js');
 var authController = require('../controllers/auth.js');
 
-router.route('/users')
+router.route('/api/users')
 
     .post(userController.postUsers)
     .get(userController.getUsers);
 
-router.route('/users/:user_id')
+router.route('/api/users/:user_id')
 
     .get(authController.isAuthenticated, userController.getUser)
     .put(authController.isAuthenticated, userController.putUser)

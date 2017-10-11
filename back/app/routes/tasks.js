@@ -4,12 +4,12 @@ var taskController = require('../controllers/task.js');
 var authController = require('../controllers/auth');
 
 //TASKS-----------------------
-router.route('/tasks')
+router.route('/api/tasks')
 
     .post(authController.isAuthenticated, taskController.postTasks)
     .get(authController.isAuthenticated, taskController.getTasks);
 
-router.route('/tasks/:task_id')
+router.route('/api/tasks/:task_id')
 
     .get(taskController.getTask)
     .put(taskController.putTask)

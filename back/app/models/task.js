@@ -13,6 +13,10 @@ var TaskSchema = new mongoose.Schema({
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
+    },
+    parentBoard: {
+      type: mongoose.Schema.types.ObjectId,
+      ref: 'Board'
     }
 });
 
