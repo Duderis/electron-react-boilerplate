@@ -6,16 +6,28 @@ var TaskSchema = new mongoose.Schema({
       type: Number,
       required: true
     },
-    name: String,
-    description: String,
-    points: Number,
-    duration: Number,
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: false
+    },
+    points: {
+      type: Number,
+      required: false
+    },
+    duration: {
+      type: Number,
+      required: false
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
     parentBoard: {
-      type: mongoose.Schema.types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Board'
     }
 });

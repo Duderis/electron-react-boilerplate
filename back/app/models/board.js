@@ -6,8 +6,14 @@ var BoardSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  name: String,
-  description: String,
+  name: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
   lanes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Swimlane',

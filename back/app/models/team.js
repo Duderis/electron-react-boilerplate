@@ -6,7 +6,10 @@ var TeamSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   users: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

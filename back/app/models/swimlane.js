@@ -6,8 +6,14 @@ var SwimlaneSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  name: String,
-  color: String,
+  name: {
+    type: String,
+    required: true
+  },
+  color: {
+    type: String,
+    required: false
+  },
   tasks: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'

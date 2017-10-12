@@ -1,0 +1,26 @@
+.content {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.listBlock {
+  border-style: solid;
+  border-color: #000;
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.listBlock li {
+  cursor: pointer;
+  margin: 2px 0;
+}
+
+.listBlock ul {
+  margin: 0;
+}
+
+.formBlock {
+  padding: 5px;
+}
