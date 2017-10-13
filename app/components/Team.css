@@ -24,3 +24,7 @@
 .formBlock {
   padding: 5px;
 }
+
+input {
+  border: solid 2px #000;
+}

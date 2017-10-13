@@ -24,11 +24,11 @@ export default class Home extends Component {
   }
 
   loadAllData(){
-    get('team',(err,res,body)=>{this.props.loadTeams(body)});
-    get('user',(err,res,body)=>{this.props.loadUsers(body)});
-    get('task',(err,res,body)=>{this.props.loadTasks(body)});
-    get('board',(err,res,body)=>{this.props.loadBoards(body)});
-    get('lane',(err,res,body)=>{this.props.loadLanes(body)});
+    get('team',(err,res,body)=>{this.props.loadTeams(JSON.parse(body))});
+    get('user',(err,res,body)=>{this.props.loadUsers(JSON.parse(body))});
+    get('task',(err,res,body)=>{this.props.loadTasks(JSON.parse(body))});
+    get('board',(err,res,body)=>{this.props.loadBoards(JSON.parse(body))});
+    get('lane',(err,res,body)=>{this.props.loadLanes(JSON.parse(body))});
   }
 
   componentDidMount(){
@@ -48,7 +48,7 @@ export default class Home extends Component {
       if(that.props.activeTab.name===ele.name){
         cn = that.activeTabClass;
       }
-      tabs.push((<li className={cn} onClick={that.switchTab(ele.name,ele.type)}>{ele.name}</li>))
+      tabs.push((<li key={index+'navtab'} className={cn} onClick={that.switchTab(ele.name,ele.type)}>{ele.name}</li>))
     })
     return tabs;
   }

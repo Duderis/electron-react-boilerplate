@@ -6,7 +6,8 @@ function mapStateToProps(state) {
   return {
     teams: state.data.teams,
     team: state.data.team,
-    users: state.data.users
+    users: state.data.users,
+    boards: state.data.boards
   };
 }
 

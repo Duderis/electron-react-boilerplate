@@ -1,7 +1,7 @@
 import Constants from '../constants/constants';
 
 export const initialState = {
-  teams: [], team:{},
+  teams: [], team:{users:[],boards:[]},
   boards: [], board:{},
   tasks: [], taks:{},
   swimlanes: [], swimlane:{},
