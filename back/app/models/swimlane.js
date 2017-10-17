@@ -21,4 +21,13 @@ var SwimlaneSchema = new mongoose.Schema({
 })
 SwimlaneSchema.plugin(autoIncrement.plugin, {model: 'Swimlane', field: 'laneId'});
 
+SwimlaneSchema.pre('remove'), function(next){
+  this.model('Board').update(
+    {lanes:this._id},//findcondition
+    {$pull: {lanes:this._id}},
+    {multi: true},
+    next
+  );
+});
+
 module.exports = mongoose.model('Swimlane', SwimlaneSchema);

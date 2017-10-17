@@ -34,4 +34,13 @@ var TaskSchema = new mongoose.Schema({
 
 TaskSchema.plugin(autoIncrement.plugin, {model: 'Task', field: 'taskId'})
 
+TaskSchema.pre('remove'), function(next){
+  this.model('Swimlane').update(
+    {tasks:this._id},//findcondition
+    {$pull: {tasks:this._id}},
+    {multi: true},
+    next
+  );
+});
+
 module.exports = mongoose.model('Task', TaskSchema);

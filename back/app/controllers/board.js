@@ -1,12 +1,18 @@
 var arrUniq = require('../utils');
-var Board = require('../models/board.js');
+var Board = require('../models/board');
 
 exports.postBoards = function(req,res){
   var board = new Board({
     name: req.body.name,
-    description: req.body.description,
-    lanes: []
+    description: req.body.description||null,
+    lanes: req.body.lanes||[]
   });
+  board.save(err=>{
+    if(err)
+      res.send(err);
+    else
+      res.json(board);
+  })
 }
 
 exports.getBoards = function(req,res){
@@ -35,7 +41,7 @@ exports.putBoard = function(req,res){
       board.name = req.body.name || board.name;
       board.description = req.body.description || board.description;
       if(req.body.tasks){
-        board.tasks = arrUniq(board.tasks.concat(req.body.tasks));
+        board.tasks = req.body.tasks;
       }
       board.save(err=>{
         if(err)
@@ -48,10 +54,12 @@ exports.putBoard = function(req,res){
 }
 
 exports.deleteBoard = function(req,res){
-  Board.findOneAndRemove({boardId: req.params.board_id}, err=>{
+  Board.findOneAndRemove({boardId: req.params.board_id}, (err,ele)=>{
+    ele.remove();
     if(err)
       res.send(err);
     else
       res.json({message: "deleted board"});
+
   })
 }

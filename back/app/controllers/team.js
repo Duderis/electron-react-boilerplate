@@ -5,12 +5,9 @@ var Team = require('../models/team.js');
 exports.postTeams = function(req,res){
   var team = new Team({
     name: req.body.teamName,
-    users: [],
-    boards: []
+    users: req.body.users||[],
+    boards: req.body.boards||[]
   });
-  if(req.body.addCurrent){
-    team.users.push(req.user._id);
-  }
   team.save(err=>{
     if(err)
       res.send(err);
@@ -44,10 +41,10 @@ exports.putTeam = function(req,res){
     else{
       team.name = req.body.name || team.name;
       if(req.body.users){
-        team.users = arrUniq(team.users.concat(req.body.users));
+        team.users = req.body.users;
       }
       if(req.body.boards){
-        team.boards = arrUniq(team.boards.concat(req.body.boards));
+        team.boards = req.body.boards;
       }
       team.save(err=>{
         if(err)

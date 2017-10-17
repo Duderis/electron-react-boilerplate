@@ -56,7 +56,8 @@ exports.putTask = function(req,res){
 }
 
 exports.deleteTask = function(req,res){
-  Task.findOneAndRemove({taskId: req.params.taskId}, err => {
+  Task.findOneAndRemove({taskId: req.params.taskId}, (err,ele) => {
+    ele.remove();
     if(err)
       res.send(err);
     else

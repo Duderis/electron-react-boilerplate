@@ -6,7 +6,7 @@ exports.postSwimlanes = function(req,res){
   var lane = new Swimlane({
     name: req.body.name,
     color: req.body.color || null,
-    tasks: []
+    tasks: req.body.tasks || null
   });
   lane.save(err=>{
     if(err)
@@ -42,7 +42,7 @@ exports.putSwimlane = function(req,res){
       lane.name = req.body.name || lane.name;
       lane.color = req.body.color || lane.color;
       if(req.body.tasks){
-        lane.tasks = arrUniq(lane.tasks.concat(req.body.tasks));
+        lane.tasks = req.body.tasks;
       }
       lane.save(err=>{
         if(err)
@@ -55,7 +55,8 @@ exports.putSwimlane = function(req,res){
 }
 
 exports.deleteSwimlane = function(req,res){
-  Swimlane.findOneAndRemove({laneId: req.params.swimlane_id}, err=>{
+  Swimlane.findOneAndRemove({laneId: req.params.swimlane_id}, (err,ele)=>{
+    ele.remove();
     if(err)
       res.send(err);
     else
