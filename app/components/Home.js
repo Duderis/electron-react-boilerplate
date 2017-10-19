@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import shortid from 'shortid';
 import { ipcRenderer } from 'electron';
 import classnames from 'classnames';
-
 import styles from './Home.css';
+
 import Content from '../containers/Content';
 import Sidebar from './Sidebar';
 import { get } from '../utils/requestFunctions';
