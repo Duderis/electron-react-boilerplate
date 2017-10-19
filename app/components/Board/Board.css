@@ -5,6 +5,7 @@
 }
 
 .listBlock {
+  box-sizing: border-box;
   border-style: solid;
   border-color: #000;
   border-radius: 2px;
@@ -21,22 +22,19 @@
   margin: 0;
 }
 
-.formBlock {
-  padding: 5px;
+.listBlock li > ul {
+  color: #606060;
+  margin-left: 20px;
 }
 
-input {
-  border: solid 2px #000;
-}
-
-hr {
-  height: 2px;
-  border-width: 0;
-  color: #000;
-  background-color: #000;
-}
-
-.selected {
-  background-color: #4920d0;
-  color: #fff;
+.bigBoard {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: #000;
+  border-radius: 2px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
 }

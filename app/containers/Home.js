@@ -9,27 +9,25 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    switchTab: (name,type) => {
-      dispatch(Actions.switchTab(name,type))
-    },
-    loadUsers: (users) => {
-      dispatch(Actions.loadUsers(users))
-    },
-    loadTeams: (teams) => {
-      dispatch(Actions.loadTeams(teams))
-    },
-    loadBoards: (boards) => {
-      dispatch(Actions.loadBoards(boards))
-    },
-    loadLanes: (lanes) => {
-      dispatch(Actions.loadLanes(lanes))
-    },
-    loadTasks: (tasks) => {
-      dispatch(Actions.loadTasks(tasks))
-    }
+const mapDispatchToProps = (dispatch) => ({
+  switchTab: (name, type) => {
+    dispatch(Actions.switchTab(name, type));
+  },
+  loadUsers: (users) => {
+    dispatch(Actions.loadUsers(users));
+  },
+  loadTeams: (teams) => {
+    dispatch(Actions.loadTeams(teams));
+  },
+  loadBoards: (boards) => {
+    dispatch(Actions.loadBoards(boards));
+  },
+  loadLanes: (lanes) => {
+    dispatch(Actions.loadLanes(lanes));
+  },
+  loadTasks: (tasks) => {
+    dispatch(Actions.loadTasks(tasks));
   }
-}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -11,12 +11,22 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeTeam: (team) => {
-      dispatch(Actions.changeTeam(team))
-    },
+const mapDispatchToProps = (dispatch) => ({
+  changeTeam: (team) => {
+    dispatch(Actions.changeTeam(team));
+  },
+  loadUsers: (users) => {
+    dispatch(Actions.loadUsers(users));
+  },
+  loadTeams: (teams) => {
+    dispatch(Actions.loadTeams(teams));
+  },
+  loadBoards: (boards) => {
+    dispatch(Actions.loadBoards(boards));
+  },
+  clearTeam: () => {
+    dispatch(Actions.clearTeam());
   }
-}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Team);

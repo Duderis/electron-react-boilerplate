@@ -1,105 +1,137 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import styles from './Team.css';
+import { post, put } from '../utils/requestFunctions';
 
 export default class Team extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.addUser = this.addUser.bind(this);
-    this.removeUser = this.removeUser.bind(this);
+    this.addElement = this.addElement.bind(this);
+    this.removeElement = this.removeElement.bind(this);
+    this.reloadTeam = this.reloadTeam.bind(this);
+    this.loadNewTeam = this.loadNewTeam.bind(this);
+    this.clearTeam = this.clearTeam.bind(this);
   }
 
-  componentDidMount(){
+  reloadTeam(body) {
+    const { teams, team } = this.props;
+    const index = teams.findIndex(innerTeam => innerTeam._id === body._id);
+    this.props.loadTeams([...teams.slice(0, index),
+      { ...teams[index], ...body },
+      ...teams.slice(index + 1)]);
+    this.props.changeTeam({ ...team, ...body });
   }
 
-  handleSubmit(e){
+  loadNewTeam(body) {
+    const { teams, team } = this.props;
+    this.props.loadTeams([...teams, body]);
+    this.props.changeTeam({ ...team, ...body });
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
-    console.log(this.props.team);
+    this.props.team._id
+      ? put('team', (err, res, body) => this.reloadTeam(JSON.parse(body)), this.props.team, this.props.team.teamId)
+      : post('team', (err, res, body) => this.loadNewTeam(JSON.parse(body)), this.props.team);
   }
 
-  handleChange(e){
-    this.props.changeTeam({name:e.target.value});
+  handleSelect(id) {
+    this.props.changeTeam(this.props.teams.find(team => team.teamId === id));
   }
 
-  drawTeams(arr){
-    return arr.map(element => <li>{element.name}</li>);
+  handleChange(e) {
+    this.props.changeTeam({ name: e.target.value });
   }
 
-  addUser(element){
-    if(Object.keys(this.props.team).length == 0){
-      this.props.changeTeam({users:[{_id:element._id}]});
-    }else if(this.props.team.users.findIndex((ele)=>{return ele._id==element._id})===-1){
-      this.props.changeTeam({users:[
-          ...this.props.team.users,
-          {_id:element._id}
-      ]});
+  drawTeams(arr) {
+    return arr.map((element, index) => (<li
+      className={this.props.team._id === element._id ? styles.selected : {}}
+      onClick={() => this.handleSelect(element.teamId)}
+      key={shortid.generate()}
+    >{element.name}
+    </li>));
+  }
+
+  clearTeam() {
+    this.props.clearTeam();
+  }
+
+  removeElement(element, type) {
+    if (Object.keys(this.props.team).length === 0) {
+      return;
+    }
+    const index = this.props.team[type].findIndex((ele) => ele._id === element._id);
+    if (this.props.team[type].length === 1) {
+      this.props.changeTeam({ [type]: [] });
+    } else if (index !== -1) {
+      this.props.changeTeam({
+        [type]: [
+          ...this.props.team[type].slice(0, index),
+          ...this.props.team[type].slice(index + 1)
+        ]
+      });
     }
   }
 
-  removeUser(element){
-    if(Object.keys(this.props.team).length == 0){
-      return
-    }
-    let index = this.props.team.users.findIndex((ele)=>{return ele._id==element._id});
-    if(this.props.team.users.length===1){
-      this.props.changeTeam({users:[]});
-    }else if(index!==-1){
-      this.props.changeTeam({users:[
-        ...this.props.team.users.slice(0, index),
-        ...this.props.team.users.slice(index+1)
-      ]})
+  addElement(element, type) {
+    if (Object.keys(this.props.team).length === 0) {
+      this.props.changeTeam({ [type]: [element._id] });
+    } else if (this.props.team[type].findIndex((ele) => ele._id === element._id) === -1) {
+      this.props.changeTeam({
+        [type]: [
+          ...this.props.team[type],
+          element._id
+        ]
+      });
     }
   }
 
-  drawUsers(arr){
-    return arr.map((element,index) => {let button = this.props.team.users.findIndex((ele)=>{return ele._id==element._id})===-1 ? <span onClick={()=>{this.addUser(element)}}>
-      +
-    </span> : <span onClick={()=>{this.removeUser(element)}}>-</span>;
-    return <li key={index+'smth'}>
-        {element.username}
+  drawElement(arr, type, identifier) {
+    return arr.map((element) => {
+      const button = this.props.team[type].findIndex((ele) => ele === element._id) === -1
+        ? (<span onClick={() => { this.addElement(element, type); }}>+</span>)
+        : <span onClick={() => { this.removeElement(element, type); }}>-</span>;
+      return (<li key={shortid.generate()}>
+        {element[identifier]}
         {button}
-      </li>});
+      </li>);
+    });
   }
 
-  drawBoards(arr){
-    return arr.map(element => <li>{element.name}</li>);
-  }
-
-  render(){
-    let teamName = this.props.team.name || '';
+  render() {
+    const teamName = this.props.team.name || '';
     return (
       <div className={styles.content}>
         <div className={styles.listBlock}>
           Teams
+          <hr />
           <ul>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
-            <li>item</li>
+            {this.drawTeams(this.props.teams)}
           </ul>
         </div>
         <div className={styles.formBlock}>
           <form onSubmit={this.handleSubmit}>
             <label>
-              Team Name
-              <input onChange={this.handleChange} type="text" value={teamName}/>
+              Team Name <span onClick={this.clearTeam}> x </span>
+              <input onChange={this.handleChange} type="text" value={teamName} />
             </label>
             <div className={styles.listBlock}>
               Users
+              <hr />
               <ul>
-                {this.drawUsers(this.props.users)}
+                {this.drawElement(this.props.users, 'users', 'username')}
               </ul>
             </div>
             <div className={styles.listBlock}>
               Boards
+              <hr />
               <ul>
-                {this.drawBoards(this.props.boards)}
+                {this.drawElement(this.props.boards, 'boards', 'name')}
               </ul>
             </div>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" />
           </form>
         </div>
         {this.props.children}

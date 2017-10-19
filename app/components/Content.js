@@ -3,8 +3,8 @@ import Team from '../containers/Team';
 import Board from '../containers/Board';
 
 export default class Content extends Component {
-  drawChild(){
-    switch(this.props.activeTab.type){
+  drawChild() {
+    switch (this.props.activeTab.type) {
       case 'board':
         return (<Board />);
       default:
@@ -12,7 +12,7 @@ export default class Content extends Component {
     }
   }
 
-  render(){
+  render() {
     return this.drawChild();
   }
 }

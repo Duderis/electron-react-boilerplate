@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Content from '../components/Content';
-import Actions from '../actions/actions';
 
 function mapStateToProps(state) {
   return {
@@ -8,9 +7,4 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps)(Content);

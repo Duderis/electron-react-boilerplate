@@ -1,51 +1,51 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var autoIncrement = require('mongoose-auto-increment');
-var app = express();
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var ejs = require('ejs');
-var session = require('express-session');
+const express = require('express');
+const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 
-var db = mongoose.connect('mongodb://localhost:27017/solid_disco',{useMongoClient: true});
-//console.log(db);
+const app = express();
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const ejs = require('ejs');
+const session = require('express-session');
+
+const db = mongoose.connect('mongodb://localhost:27017/solid_disco', { useMongoClient: true });
+// console.log(db);
 autoIncrement.initialize(db);
 
-app.set('views', __dirname+'/app/views');
-app.set('view engine','ejs');
+app.set('views', `${__dirname}/app/views`);
+app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(session({
-    secret: 'secretkey',
-    saveUninitialized: true,
-    resave: true
+  secret: 'secretkey',
+  saveUninitialized: true,
+  resave: true
 }));
 
-var port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
-var router = express.Router();
+const router = express.Router();
 
-//middleware
-router.use(function(req, res, next){
-    console.log('sexy api called');
-    next();
+// middleware
+router.use((req, res, next) => {
+  next();
 });
 
-router.get('/', function(req,res){
-    res.json({message: 'All your base are belong to us'});
+router.get('/', (req, res) => {
+  res.json({ message: 'All your base are belong to us' });
 });
 
-var boards = require('./app/routes/boards.js');
-var swimlanes = require('./app/routes/swimlanes.js');
-var tasks = require('./app/routes/tasks.js');
-var teams = require('./app/routes/teams.js');
-var users = require('./app/routes/users.js');
-var clients = require('./app/routes/client.js');
-var oauth2 = require('./app/routes/oauth2.js');
+const boards = require('./app/routes/boards.js');
+const swimlanes = require('./app/routes/swimlanes.js');
+const tasks = require('./app/routes/tasks.js');
+const teams = require('./app/routes/teams.js');
+const users = require('./app/routes/users.js');
+const clients = require('./app/routes/client.js');
+const oauth2 = require('./app/routes/oauth2.js');
 
-app.use('/api',router);
+app.use('/api', router);
 
 app.use(boards);
 app.use(swimlanes);
@@ -56,4 +56,4 @@ app.use(clients);
 app.use(oauth2);
 
 app.listen(port);
-console.log('Server on '+ port);
+console.log(`Server on ${port}`);

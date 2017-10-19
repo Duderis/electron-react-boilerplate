@@ -1,7 +1,8 @@
-var Task = require('../models/task.js');
+const Task = require('../models/task.js');
 
-exports.postTasks = function(req,res){
-  var task = new Task({
+exports.postTasks = function (req, res) {
+  console.log(req.body);
+  const task = new Task({
     name: req.body.name,
     description: req.body.description || null,
     points: req.body.points || null,
@@ -9,58 +10,41 @@ exports.postTasks = function(req,res){
     createdBy: req.user._id,
     parentBoard: req.boardId || null
   });
-  task.save(function(err){
-    if(err)
-      res.send(err);
-    else
-      res.json({message: 'task: '+task.name+' created'});
+  task.save((err) => {
+    if (err) { res.send(err); } else { res.json({ message: `task: ${task.name} created` }); }
   });
-}
+};
 
-exports.getTasks = function(req,res){
-  Task.find(function(err, tasks){
-    if(err)
-      res.send(err);
-    else
-      res.json(tasks);
+exports.getTasks = function (req, res) {
+  Task.find((err, tasks) => {
+    if (err) { res.send(err); } else { res.json(tasks); }
   });
-}
+};
 
-exports.getTask = function(req,res){
-  Task.findOne({taskId: req.params.task_id}, (err,task)=>{
-    if(err)
-      res.send(err);
-    else
-      res.json(task);
-  })
-}
+exports.getTask = function (req, res) {
+  Task.findOne({ taskId: req.params.task_id }, (err, task) => {
+    if (err) { res.send(err); } else { res.json(task); }
+  });
+};
 
-exports.putTask = function(req,res){
-  Task.findOne({taskId: req.params.task_id}, (err,task)=>{
-    if(err)
-      res.send(err);
-    else {
+exports.putTask = function (req, res) {
+  Task.findOne({ taskId: req.params.task_id }, (err, task) => {
+    if (err) { res.send(err); } else {
       task.name = req.body.name || task.name;
       task.description = req.body.description || task.description;
       task.points = req.body.points || task.points;
       task.duration = req.body.duration || task.duration;
       task.parentBoard = req.body.boardId || task.parentBoard;
-      task.save(err=>{
-        if(err)
-          res.send(err);
-        else
-          res.json(task);
+      task.save(err => {
+        if (err) { res.send(err); } else { res.json(task); }
       });
     }
   });
-}
+};
 
-exports.deleteTask = function(req,res){
-  Task.findOneAndRemove({taskId: req.params.taskId}, (err,ele) => {
+exports.deleteTask = function (req, res) {
+  Task.findOneAndRemove({ taskId: req.params.taskId }, (err, ele) => {
     ele.remove();
-    if(err)
-      res.send(err);
-    else
-      res.json({ message: 'Task with id '+ req.params.task_id +' was successfully removed.'});
+    if (err) { res.send(err); } else { res.json({ message: `Task with id ${req.params.task_id} was successfully removed.` }); }
   });
-}
+};
