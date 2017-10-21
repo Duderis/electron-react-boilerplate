@@ -19,10 +19,12 @@ export default class BigBoard extends Component {
   }
 
   render() {
-    return (
-      <div className={styles.bigBoard}>
+    if (this.props.board._id) {
+      return (<div className={styles.bigBoard}>
         {this.drawLanes()}
-      </div>
-    );
+        <i className="fa fa-plus-circle" />
+      </div>);
+    }
+    return (<div className={styles.bigBoard} />);
   }
 }

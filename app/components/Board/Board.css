@@ -37,4 +37,17 @@
   box-sizing: border-box;
   padding: 10px;
   width: 100%;
+  align-items: center;
+}
+
+hr {
+  height: 2px;
+  border-width: 0;
+  color: #000;
+  background-color: #000;
+}
+
+.selected {
+  background-color: #4920d0;
+  color: #fff;
 }

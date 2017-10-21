@@ -9,6 +9,7 @@ export const initialState = {
   taks: {},
   swimlanes: [],
   swimlane: {},
+  localSwimlanes: [],
   users: [],
   user: {}
 };
@@ -30,11 +31,13 @@ export default function data(state = initialState, action) {
     case Constants.CHANGE_TASK:
       return { ...state, task: { ...state.task, ...action.item } };
     case Constants.CHANGE_LANE:
-      return { ...state, swimlane: { ...state.swimlane, ...action.item } };
+      return { ...state, swimlane: { ...action.item } };
+    case Constants.CHANGE_LOCAL_LANES:
+      return { ...state, localSwimlanes: [...action.lanes] };
     case Constants.CHANGE_BOARD:
-      return { ...state, board: { ...state.board, ...action.item } };
+      return { ...state, board: { ...action.item } };
     case Constants.CHANGE_USER:
-      return { ...state, user: { ...state.user, ...action.item } };
+      return { ...state, user: { ...action.item } };
     case Constants.CLEAR_TEAM:
       return { ...state, team: { users: [], boards: [] } };
     case Constants.CLEAR_TASK:

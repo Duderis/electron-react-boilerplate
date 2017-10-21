@@ -42,6 +42,10 @@ const Actions = {
     item,
     type: Constants.CHANGE_LANE
   }),
+  changeLocalLanes: (items) => ({
+    items,
+    type: Constants.CHANGE_LOCAL_LANES
+  }),
   changeUser: (item) => ({
     item,
     type: Constants.CHANGE_USER
