@@ -29,6 +29,10 @@ const TaskSchema = new mongoose.Schema({
   parentBoard: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Board'
+  },
+  parentSwimlane: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Swimlane'
   }
 });
 

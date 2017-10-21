@@ -14,6 +14,10 @@ const SwimlaneSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  parentBoard: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Board'
+  },
   tasks: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
