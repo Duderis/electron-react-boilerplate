@@ -4,7 +4,7 @@ export const initialState = {
   teams: [],
   team: { users: [], boards: [] },
   boards: [],
-  board: {},
+  board: { name: '', description: '', lanes: [] },
   tasks: [],
   taks: {},
   swimlanes: [],
@@ -45,7 +45,12 @@ export default function data(state = initialState, action) {
     case Constants.CLEAR_LANE:
       return { ...state, swimlane: {} };
     case Constants.CLEAR_BOARD:
-      return { ...state, board: {} };
+      return {
+        ...state,
+        board: {
+          name: '', description: '', lanes: []
+        }
+      };
     case Constants.CLEAR_USER:
       return { ...state, user: {} };
     default:

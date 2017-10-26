@@ -33,7 +33,9 @@ export default class Lane extends Component {
       <div className={styles.lane}>
         <div className={styles.laneTitle}>
           {this.state.editing
-          ? <form onSubmit={this.handleSubmit}><input onChange={this.handleChange} /></form>
+          ? <form onSubmit={this.handleSubmit}>
+            <input onChange={this.handleChange} value={this.state.value} />
+          </form>
           : <span onDoubleClick={this.handleModeChange}>{ this.props.lane.name }</span>}
         </div>
         <div className={styles.taskContainer}>{drawTasks(this.props.tasks)}</div>
