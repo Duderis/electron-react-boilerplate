@@ -15,6 +15,7 @@ export default class BigBoard extends Component {
     };
     this.finishField = this.finishField.bind(this);
     this.handleLaneChange = this.handleLaneChange.bind(this);
+    this.renderUnassigned = this.renderUnassigned.bind(this);
   }
 
   drawLanes: Function;
@@ -49,6 +50,22 @@ export default class BigBoard extends Component {
     this.setState({ newLane: false });
   }
 
+  renderUnassigned() {
+    const taskArr = _.filter(this.props.task, {
+      parentBoard: this.props.board._id,
+      parentSwimlane: null
+    });
+    return (
+      <Lane
+        lane={{
+          name: 'unnassigned lane'
+        }}
+        unnasigned
+        tasks={taskArr}
+      />
+    );
+  }
+
   render() {
     if (this.props.board._id) {
       return (
@@ -61,6 +78,7 @@ export default class BigBoard extends Component {
           <div onClick={() => this.setState({ newLane: !this.state.newLane })}>
             <i className="fa fa-plus-circle" />
           </div>
+          {this.renderUnassigned()}
         </div>);
     }
     return (<div className={styles.bigBoard} />);

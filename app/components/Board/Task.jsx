@@ -7,7 +7,7 @@ export default props => (
       {props.name}
     </div>
     <div className={styles.taskDescription}>
-      {props.description.length >= 50
+      {props.description && props.description.length >= 50
         ? props.description.slice(0, 50)
         : props.description}
     </div>

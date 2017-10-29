@@ -21,7 +21,10 @@ export default class NewLane extends Component {
 
   reloadBoard(body, laneBody) {
     const index = _.findIndex(this.props.boards, this.props.board);
-    this.props.changeBoard({ ...this.props.board, lanes: [...this.props.board.lanes, laneBody._id] });
+    this.props.changeBoard({
+      ...this.props.board,
+      lanes: [...this.props.board.lanes, laneBody._id]
+    });
     this.props.loadBoards([
       ...this.props.boards.slice(0, index),
       body,

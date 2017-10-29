@@ -1,17 +1,17 @@
 const Task = require('../models/task.js');
 
 exports.postTasks = function (req, res) {
-  console.log(req.body);
   const task = new Task({
     name: req.body.name,
     description: req.body.description || null,
     points: req.body.points || null,
     duration: req.body.duration || null,
     createdBy: req.user._id,
-    parentBoard: req.boardId || null
+    parentBoard: req.body.parentBoard || null,
+    parentSwimlane: req.body.parentSwimlane || null
   });
   task.save((err) => {
-    if (err) { res.send(err); } else { res.json({ message: `task: ${task.name} created` }); }
+    if (err) { res.send(err); } else { res.json(task); }
   });
 };
 
@@ -34,8 +34,9 @@ exports.putTask = function (req, res) {
       task.description = req.body.description || task.description;
       task.points = req.body.points || task.points;
       task.duration = req.body.duration || task.duration;
-      task.parentBoard = req.body.boardId || task.parentBoard;
-      task.save(err => {
+      task.parentBoard = req.body.parentBoard || task.parentBoard;
+      task.parentSwimlane = req.body.parentSwimlane || task.parentSwimlane;
+      task.save((err) => {
         if (err) { res.send(err); } else { res.json(task); }
       });
     }
