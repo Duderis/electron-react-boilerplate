@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styles from './Board.css';
 import Task from './Task';
+import { put } from '../../utils/requestFunctions';
 
 const drawTasks = tasks =>
-  tasks.map((task) =>
+  tasks.map(task =>
     <Task description={task.description} name={task.name} />);
 
 export default class Lane extends Component {
@@ -22,7 +23,8 @@ export default class Lane extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.update(this.state.name);
+    put('lane', () => { }, { ...this.props.lane, name: this.state.name }, this.props.lane.laneId);
+    this.props.update(this.state.name, this.props.lane.laneId);
     this.setState({ ...this.state, editing: false });
   }
   handleModeChange() {
@@ -34,8 +36,8 @@ export default class Lane extends Component {
         <div className={styles.laneTitle}>
           {this.state.editing
           ? <form onSubmit={this.handleSubmit}>
-            <input onChange={this.handleChange} value={this.state.value} />
-          </form>
+            <input onChange={this.handleChange} value={this.state.name} />
+            </form>
           : <span onDoubleClick={this.handleModeChange}>{ this.props.lane.name }</span>}
         </div>
         <div className={styles.taskContainer}>{drawTasks(this.props.tasks)}</div>

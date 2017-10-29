@@ -29,6 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   loadBoards: (boards) => {
     dispatch(Actions.loadBoards(boards));
   },
+  loadLanes: (items) => {
+    dispatch(Actions.loadLanes(items));
+  },
   clearBoard: () => {
     dispatch(Actions.clearBoard());
   }

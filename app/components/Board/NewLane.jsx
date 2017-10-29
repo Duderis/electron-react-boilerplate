@@ -19,8 +19,9 @@ export default class NewLane extends Component {
     this.setState({ name: e.target.value });
   }
 
-  reloadBoard(body) {
-    this.props.changeBoard({ ...this.props.board, lanes: [...this.props.board.lanes, body._id] });
+  reloadBoard(body, laneBody) {
+    const index = _.findIndex(this.props.boards, this.props.board);
+    this.props.changeBoard({ ...this.props.board, lanes: [...this.props.board.lanes, laneBody._id] });
     this.props.loadBoards([
       ...this.props.boards.slice(0, index),
       body,
@@ -30,11 +31,10 @@ export default class NewLane extends Component {
 
   reloadLanes(body) {
     put(
-      'board', (err, res, innerBody) => this.reloadBoard(JSON.parse(innerBody)),
+      'board', (err, res, innerBody) => this.reloadBoard(JSON.parse(innerBody), body),
       { ...this.props.board, lanes: [...this.props.board.lanes, body._id] },
       this.props.board.boardId
     );
-    const index = _.findIndex(this.props.boards, this.props.board);
     this.props.loadLanes([...this.props.lanes, body]);
   }
 

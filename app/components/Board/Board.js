@@ -58,12 +58,11 @@ export default class Board extends Component {
             changeBoard={this.props.changeBoard}
           />
           <BigBoard
-            lanes={this.props.board.lanes.length > 0 ? this.props.lanes.filter(lane =>
-              this.props.board.lanes.findIndex(inner =>
-                inner === lane._id) > -1) : []}
+            lanes={this.props.lanes}
             changeBoard={this.props.changeBoard}
             board={this.props.board}
             tasks={this.props.tasks}
+            loadLanes={this.props.loadLanes}
           />
         </div>
         <div>
