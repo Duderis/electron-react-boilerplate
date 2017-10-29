@@ -1,5 +1,4 @@
 const Constants = {
-  SWITCH_TAB: 'SWITCH_TAB',
   LOAD_TEAMS: 'LOAD_TEAMS',
   LOAD_TASKS: 'LOAD_TASKS',
   LOAD_USERS: 'LOAD_USERS',
@@ -15,6 +14,6 @@ const Constants = {
   CLEAR_TASK: 'CLEAR_TASK',
   CLEAR_USER: 'CLEAR_USER',
   CLEAR_BOARD: 'CLEAR_BOARD',
-  CLEAR_LANE: 'CLEAR_LANE',
+  CLEAR_LANE: 'CLEAR_LANE'
 };
 export default Constants;

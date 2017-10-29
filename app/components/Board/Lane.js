@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import _ from 'lodash';
 import styles from './Board.css';
-import Task from './Task';
+import Task from '../../containers/Task';
 import { put } from '../../utils/requestFunctions';
 import NewTask from './NewTask';
 
 const drawTasks = tasks => _.map(tasks, task =>
-  <Task key={shortid.generate()} description={task.description} name={task.name} />);
+  <Task key={shortid.generate()} task={task} />);
 
 export default class Lane extends Component {
   constructor(props) {

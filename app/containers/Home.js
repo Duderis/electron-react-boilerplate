@@ -1,17 +1,22 @@
 import { connect } from 'react-redux';
 import Home from '../components/Home';
 import Actions from '../actions/actions';
+import * as tabActions from '../actions/tabs';
 
 function mapStateToProps(state) {
   return {
     users: state.data.users,
-    activeTab: state.tab.activeTab
+    activeTab: state.tab.activeTab,
+    openTasks: state.tab.openTasks
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  switchTab: (name, type) => {
-    dispatch(Actions.switchTab(name, type));
+const mapDispatchToProps = dispatch => ({
+  switchTab: (tab) => {
+    dispatch(tabActions.switchTab(tab));
+  },
+  removeTab: (tab) => {
+    dispatch(tabActions.removeTab(tab));
   },
   loadUsers: (users) => {
     dispatch(Actions.loadUsers(users));

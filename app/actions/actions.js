@@ -6,47 +6,47 @@ const Actions = {
     tabType: type,
     type: Constants.SWITCH_TAB
   }),
-  loadTeams: (items) => ({
+  loadTeams: items => ({
     items,
     type: Constants.LOAD_TEAMS
   }),
-  loadTasks: (items) => ({
+  loadTasks: items => ({
     items,
     type: Constants.LOAD_TASKS
   }),
-  loadBoards: (items) => ({
+  loadBoards: items => ({
     items,
     type: Constants.LOAD_BOARDS
   }),
-  loadLanes: (items) => ({
+  loadLanes: items => ({
     items,
     type: Constants.LOAD_LANES
   }),
-  loadUsers: (items) => ({
+  loadUsers: items => ({
     items,
     type: Constants.LOAD_USERS
   }),
-  changeTeam: (item) => ({
+  changeTeam: item => ({
     item,
     type: Constants.CHANGE_TEAM
   }),
-  changeTask: (item) => ({
+  changeTask: item => ({
     item,
     type: Constants.CHANGE_TASK
   }),
-  changeBoard: (item) => ({
+  changeBoard: item => ({
     item,
     type: Constants.CHANGE_BOARD
   }),
-  changeLane: (item) => ({
+  changeLane: item => ({
     item,
     type: Constants.CHANGE_LANE
   }),
-  changeLocalLanes: (items) => ({
+  changeLocalLanes: items => ({
     items,
     type: Constants.CHANGE_LOCAL_LANES
   }),
-  changeUser: (item) => ({
+  changeUser: item => ({
     item,
     type: Constants.CHANGE_USER
   }),
