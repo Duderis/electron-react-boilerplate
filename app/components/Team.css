@@ -2,6 +2,14 @@
   padding: 10px;
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
 }
 
 .listBlock {
@@ -25,8 +33,16 @@
   padding: 5px;
 }
 
-input {
+input,
+textarea,
+.btn {
   border: solid 2px #000;
+}
+
+.btn {
+  margin-top: 10px;
+  background-color: #fff;
+  color: #000;
 }
 
 hr {

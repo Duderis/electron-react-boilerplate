@@ -51,7 +51,7 @@ export default class Team extends Component {
       onClick={() => this.handleSelect(element.teamId)}
       key={shortid.generate()}
     >{element.name}
-    </li>));
+                                        </li>));
   }
 
   clearTeam() {
@@ -62,7 +62,7 @@ export default class Team extends Component {
     if (Object.keys(this.props.team).length === 0) {
       return;
     }
-    const index = this.props.team[type].findIndex((ele) => ele._id === element._id);
+    const index = this.props.team[type].findIndex(ele => ele._id === element._id);
     if (this.props.team[type].length === 1) {
       this.props.changeTeam({ [type]: [] });
     } else if (index !== -1) {
@@ -78,7 +78,7 @@ export default class Team extends Component {
   addElement(element, type) {
     if (Object.keys(this.props.team).length === 0) {
       this.props.changeTeam({ [type]: [element._id] });
-    } else if (this.props.team[type].findIndex((ele) => ele._id === element._id) === -1) {
+    } else if (this.props.team[type].findIndex(ele => ele._id === element._id) === -1) {
       this.props.changeTeam({
         [type]: [
           ...this.props.team[type],
@@ -90,13 +90,13 @@ export default class Team extends Component {
 
   drawElement(arr, type, identifier) {
     return arr.map((element) => {
-      const button = this.props.team[type].findIndex((ele) => ele === element._id) === -1
+      const button = this.props.team[type].findIndex(ele => ele === element._id) === -1
         ? (<span onClick={() => { this.addElement(element, type); }}>+</span>)
         : <span onClick={() => { this.removeElement(element, type); }}>-</span>;
       return (<li key={shortid.generate()}>
         {element[identifier]}
         {button}
-      </li>);
+              </li>);
     });
   }
 

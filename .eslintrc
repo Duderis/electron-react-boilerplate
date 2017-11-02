@@ -15,6 +15,8 @@
     "jsx-a11y/anchor-has-content": "off",
     "no-underscore-dangle": "off",
     "lodash/prefer-lodash-method": [2],
-    "flowtype-errors/show-errors": 2
+    "flowtype-errors/show-errors": 2,
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
   }
 }

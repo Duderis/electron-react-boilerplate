@@ -76,7 +76,6 @@ export default class Home extends Component {
             <ul className={styles.navBarTabs}>
               {initialTabs}
               {taskTabs}
-              <li className={styles.navBarIcon}><i className="fa fa-plus-circle" /></li>
             </ul>
             <ul className={styles.navBarOther}>
               <li className={styles.navBarIcon}><i className="fa fa-cog" /></li>

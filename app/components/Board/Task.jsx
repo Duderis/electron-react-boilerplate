@@ -8,11 +8,14 @@ export default class Task extends React.Component {
   }
 
   handleClick() {
-    this.props.addTab({
+    const tab = {
       id: this.props.task.taskId,
       name: this.props.task.name,
-      description: this.props.task.description
-    });
+      description: this.props.task.description,
+      type: 'task'
+    };
+    this.props.addTab(tab);
+    this.props.switchTab(tab);
   }
 
   render() {
