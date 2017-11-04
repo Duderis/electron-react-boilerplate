@@ -14,6 +14,7 @@ import { app, ipcMain, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
 const electronOauth2 = require('electron-oauth2');
+const fs = require('fs');
 const oauthConfig = require('./config').oauth;
 const userConfig = require('./config').user;
 
@@ -102,12 +103,21 @@ app.on('ready', async () => {
   menuBuilder.buildMenu();
 });
 
-ipcMain.on('my-oauth', (event, arg) => {
+ipcMain.on('my-oauth', (event) => {
   myOauth2.getAccessToken({})
     .then((token) => {
-      console.log(token);
-      // event.sender.send('my-oauth-reply', token)
+      try {
+        fs.writeFileSync('.mytoken', token.access_token.value, 'utf-8');
+      } catch (e) {
+        console.log('error', e);
+      }
+      event.sender.send('my-oauth-reply', token);
     }, (err) => {
       console.log('Error while getting token', err);
     });
+});
+
+ipcMain.on('read-token', (event) => {
+  const readToken = fs.readFileSync('.mytoken', 'utf-8');
+  event.sender.send('read-token-reply', readToken);
 });
