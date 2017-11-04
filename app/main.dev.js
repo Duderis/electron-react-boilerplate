@@ -12,6 +12,7 @@
  */
 import { app, ipcMain, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+
 const electronOauth2 = require('electron-oauth2');
 const oauthConfig = require('./config').oauth;
 
@@ -46,13 +47,13 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
-const oauth2WindowParams= {
+const oauth2WindowParams = {
   alwaysOnTop: true,
   autoHideMenuBar: true,
-  webPreferences:{
-    nodeIntegration:false
+  webPreferences: {
+    nodeIntegration: false
   }
-}
+};
 
 const myOauth2 = electronOauth2(oauthConfig, oauth2WindowParams);
 
@@ -63,6 +64,11 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+app.on('login', () => {
+  console.log('hi');
+});
+
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
@@ -94,12 +100,12 @@ app.on('ready', async () => {
   menuBuilder.buildMenu();
 });
 
-ipcMain.on('my-oauth', (event,arg) => {
+ipcMain.on('my-oauth', (event, arg) => {
   myOauth2.getAccessToken({})
-    .then(token => {
+    .then((token) => {
       console.log(token);
-      //event.sender.send('my-oauth-reply', token)
-    }, err => {
-      console.log('Error while getting token', err)
-    })
-})
+      // event.sender.send('my-oauth-reply', token)
+    }, (err) => {
+      console.log('Error while getting token', err);
+    });
+});

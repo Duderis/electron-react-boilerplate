@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var swimlaneController = require('../controllers/swimlane.js');
 var authController = require('../controllers/auth');
+
+var router = express.Router();
 
 
 //SWIMLANES-----------------------

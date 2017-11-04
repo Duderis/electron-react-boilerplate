@@ -1,4 +1,4 @@
-var mongoose=require('mongoose');
+var mongoose = require('mongoose');
 
 var CodeSchema = new mongoose.Schema({
     value: {type:String, required:true},

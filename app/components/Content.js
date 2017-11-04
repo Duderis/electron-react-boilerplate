@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Team from '../containers/Team';
 import Board from '../containers/Board';
 import Task from '../containers/TaskView';
+import User from './UserView';
 
 export default class Content extends Component {
   drawChild() {
@@ -10,6 +11,8 @@ export default class Content extends Component {
         return (<Board />);
       case 'task':
         return (<Task id={this.props.activeTab.id} />);
+      case 'user':
+        return (<User />);
       default:
         return (<Team />);
     }

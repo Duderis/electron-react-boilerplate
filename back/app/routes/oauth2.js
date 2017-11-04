@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var oauth2Controller = require('../controllers/oauth2.js');
 var authController = require('../controllers/auth.js');
+
+var router = express.Router();
 
 router.route('/api/oauth2/authorize')
     .get(authController.isAuthenticated, oauth2Controller.authorization)

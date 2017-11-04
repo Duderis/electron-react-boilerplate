@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var boardController = require('../controllers/board.js')
 var authController = require('../controllers/auth');
+
+var router = express.Router();
 
 //BOARDS-----------------------
 router.route('/api/boards')

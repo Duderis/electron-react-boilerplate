@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var teamController = require('../controllers/team.js');
 var authController = require('../controllers/auth');
+
+var router = express.Router();
 
 router.route('/api/teams')
 

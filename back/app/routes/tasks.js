@@ -1,7 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var taskController = require('../controllers/task.js');
 var authController = require('../controllers/auth');
+
+var router = express.Router();
 
 //TASKS-----------------------
 router.route('/api/tasks')

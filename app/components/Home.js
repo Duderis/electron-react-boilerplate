@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import shortid from 'shortid';
-import { ipcRenderer } from 'electron';
 import classnames from 'classnames';
 import _ from 'lodash';
 import styles from './Home.css';
@@ -18,12 +17,6 @@ export default class Home extends Component {
     this.tabClass = styles.navBarTab;
     this.loadAllData = this.loadAllData.bind(this);
     this.drawContent = this.drawContent.bind(this);
-  }
-  oauth2Button() {
-    ipcRenderer.send('my-oauth', 'getToken');
-    ipcRenderer.once('my-oauth-reply', (event, { accessToken }) => {
-      // console.log(accessToken);
-    });
   }
 
   loadAllData() {
@@ -80,7 +73,12 @@ export default class Home extends Component {
             <ul className={styles.navBarOther}>
               <li className={styles.navBarIcon}><i className="fa fa-cog" /></li>
               <li className={styles.navBarIcon}><i className="fa fa-refresh" /></li>
-              <li className={styles.navBarUser}>user</li>
+              <li
+                className={this.props.activeTab.type === 'user' ? this.activeTabClass : styles.navBarTab}
+                onClick={this.switchTab({ id: -3, name: 'user', type: 'user' })}
+              >
+                user
+              </li>
             </ul>
           </ul>
           <div className={styles.mainBlock1}>
