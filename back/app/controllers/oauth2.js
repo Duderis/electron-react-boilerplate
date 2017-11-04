@@ -26,7 +26,9 @@ server.grant(oauth2orize.grant.code(function(client,redirectUri,user,ares,callba
     });
 
     code.save(function(err){
-        if(err) return callback(err);
+        if(err) {
+          return callback(err);
+        }
         callback(null,code.value);
     });
 }));
@@ -37,9 +39,10 @@ server.exchange(oauth2orize.exchange.code(function(client,code,redirectUri,callb
         if(authCode===undefined) return callback(null,false);
         if(client._id.toString()!== authCode.clientId) return callback(null,false);
         if(redirectUri!==authCode.redirectUri) return callback(null,false);
-
         authCode.remove(function(err){
-            if(err) return callback(err);
+            if(err) {
+              return callback(err);
+            }
 
             var token = new Token({
                 value: uid(256),
@@ -48,7 +51,9 @@ server.exchange(oauth2orize.exchange.code(function(client,code,redirectUri,callb
             });
 
             token.save(function(err){
-                if(err) return callback(err);
+                if(err) {
+                  return callback(err);
+                }
 
                 callback(null,token);
             });

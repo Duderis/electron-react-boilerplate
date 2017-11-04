@@ -15,6 +15,7 @@ import MenuBuilder from './menu';
 
 const electronOauth2 = require('electron-oauth2');
 const oauthConfig = require('./config').oauth;
+const userConfig = require('./config').user;
 
 let mainWindow = null;
 
@@ -65,8 +66,9 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('login', () => {
-  console.log('hi');
+app.on('login', (event, webContents, request, authInfo, callback) => {
+  event.preventDefault();
+  callback(userConfig.username, userConfig.password);
 });
 
 app.on('ready', async () => {

@@ -62,7 +62,7 @@ passport.use(new BearerStrategy(
 
             if(!token ) return callback(null,false);
 
-            User.findOne({_id:token.userId},function(err,user){
+            User.findOne({_id:token.userId}, function(err,user){
                 if(err) return callback(err);
 
                 if(!user) return callback(null,false);
@@ -74,7 +74,7 @@ passport.use(new BearerStrategy(
 ));
 
 module.exports = {
-  isAuthenticated : passport.authenticate(['basic','bearer'], {session: false}),
-  isClientAuthenticated : passport.authenticate('client-basic', { session : false }),
-  isBearerAuthenticated : passport.authenticate('bearer', {session: false})
+  isAuthenticated : passport.authenticate(['basic','bearer'], { session: false }),
+  isClientAuthenticated : passport.authenticate('client-basic', { session: false }),
+  isBearerAuthenticated : passport.authenticate('bearer', { session: false })
 }
