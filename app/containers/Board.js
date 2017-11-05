@@ -4,6 +4,7 @@ import Actions from '../actions/actions';
 
 function mapStateToProps(state) {
   return {
+    token: state.account.token,
     teams: state.data.teams,
     team: state.data.team,
     boards: state.data.boards,
@@ -13,7 +14,7 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   changeBoard: (board) => {
     dispatch(Actions.changeBoard(board));
   },

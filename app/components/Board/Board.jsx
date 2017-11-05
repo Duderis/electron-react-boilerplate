@@ -41,8 +41,8 @@ export default class Board extends Component {
     e.preventDefault();
 
     this.props.board._id
-      ? put('board', (err, res, body) => this.reloadBoard(JSON.parse(body)), this.props.board, this.props.board.boardId)
-      : post('board', (err, res, body) => this.loadNewBoard(JSON.parse(body)), this.props.board);
+      ? put('board', (err, res, body) => this.reloadBoard(JSON.parse(body)), this.props.board, this.props.board.boardId, this.props.token)
+      : post('board', (err, res, body) => this.loadNewBoard(JSON.parse(body)), this.props.board, this.props.token);
   }
 
   render() {

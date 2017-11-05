@@ -27,6 +27,7 @@ passport.use(new LocalStrategy(
 
 passport.use(new BasicStrategy(
     function(username, password, callback){
+      console.log(username, password);
         User.findOne({username:username},function(err,user){
             if(err) return callback(err);
 

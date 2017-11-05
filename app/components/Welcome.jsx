@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import styles from './Team.css';
 import Login from './Login';
-import { get, post } from '../utils/requestFunctions';
 import ClientList from './ClientList';
 
 export default class Welcome extends Component {
@@ -32,19 +31,11 @@ export default class Welcome extends Component {
       if (trimmedToken) {
         this.props.setToken(trimmedToken);
         this.setState({ ...this.state, step: 5 });
+      } else {
+        this.setState({ ...this.state, step: 3 });
       }
-      this.setState({ ...this.state, step: 3 });
     });
   }
-
-  readUser() {
-    ipcRenderer.send('read-user');
-    ipcRenderer.once('read-user-reply', (event, user) => {
-      const trimmedUser = _.trim(user);
-      console.log(trimmedUser);
-    });
-  }
-
 
   renderStep() {
     // step 0: Welcome screen
@@ -58,16 +49,20 @@ export default class Welcome extends Component {
         return (<div><h1>Everything is Ready!</h1><Link to="main">Continue!</Link></div>);
       case 4:
       case 3:
+        ipcRenderer.once('my-oauth-reply', (event, accessToken) => {
+          console.log(accessToken.access_token.value);
+          this.props.setToken(accessToken.access_token.value);
+          this.setState({ ...this.state, step: 5 });
+        });
         return (<ClientList />);
       case 2:
       case 1:
-        return (<Login />);
+        return (<Login onLogin={this.props.setUser} />);
       default:
         return (<h1>Welcome</h1>);
     }
   }
   render() {
-    this.determineStep();
     return (
       <div className={styles.contentCenter}>
         <div className={styles.contentColumn}>

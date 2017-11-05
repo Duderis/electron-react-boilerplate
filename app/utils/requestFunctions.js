@@ -1,7 +1,5 @@
 import request from 'request';
 
-const tempToken = 'Bearer 7Hz22x4A7yFGOI4fpiwVMCI8HjSrnXquFqkca7JSYFgMkB2uTuhXqdopqx1Qm5yrkS6lfqafwXH76hv9e3fyLfEGCEQwrXwi8WIGW53oIxu3zVsX77En2QglhVcw03FFCXQfRt1m7X3r4EtAvJfCECBVg8R2nK1BnY86tul3yAe9VZZBtXAKdmfnQEOFvVQigGnutMJ8z5X32PlECJmB3B5etPjr0FWYoZ01LGrDIP8xa6FUpDtFLkCIsQ8yL5rH';
-
 const getUrl = (type) => {
   switch (type) {
     case 'team':
@@ -21,39 +19,38 @@ const getUrl = (type) => {
   }
 };
 
-export function get(type, cb, id = false, token = tempToken) {
+export function get(type, cb, id = false, token) {
   let url = getUrl(type);
-
-  if (id) { url += `/${id}`; }
+  if (id !== false) { url = `${url}/${id}`; }
   request.get({
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Authorization: token
+      Authorization: `Bearer ${token}`
     },
     url
   }, cb);
 }
 
-export function post(type, cb, formData, token = tempToken) {
+export function post(type, cb, formData, token) {
   const url = getUrl(type);
   request.post({
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Authorization: token
+      Authorization: `Bearer ${token}`
     },
     url,
     form: formData
   }, cb);
 }
 
-export function put(type, cb, formData, id, token = tempToken) {
+export function put(type, cb, formData, id, token) {
   const url = `${getUrl(type)}/${id}`;
   request({
     url,
     method: 'PUT',
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Authorization: token
+      Authorization: `Bearer ${token}`
     },
     form: formData
   }, cb);

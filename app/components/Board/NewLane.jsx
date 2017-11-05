@@ -36,7 +36,8 @@ export default class NewLane extends Component {
     put(
       'board', (err, res, innerBody) => this.reloadBoard(JSON.parse(innerBody), body),
       { ...this.props.board, lanes: [...this.props.board.lanes, body._id] },
-      this.props.board.boardId
+      this.props.board.boardId,
+      this.props.token
     );
     this.props.loadLanes([...this.props.lanes, body]);
   }
@@ -46,7 +47,8 @@ export default class NewLane extends Component {
     post(
       'lane', (err, res, body) =>
         this.reloadLanes(JSON.parse(body)),
-      { name: this.state.name, parentBoard: this.props.board._id }
+      { name: this.state.name, parentBoard: this.props.board._id },
+      this.props.token
     );
     this.setState({ name: '' });
     this.props.finishField();

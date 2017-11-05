@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import _ from 'lodash';
 import styles from './Board.css';
-import Lane from './Lane';
+import Lane from '../../containers/Lane';
 import NewLane from '../../containers/NewLane';
 
 export default class BigBoard extends Component {

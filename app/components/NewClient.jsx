@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from './Team.css';
-import ModalWrapper from './ModalWrapper';
 
 export default class NewClient extends Component {
   constructor(props) {

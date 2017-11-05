@@ -4,13 +4,14 @@ import Actions from '../actions/actions';
 
 function mapStateToProps(state) {
   return {
+    token: state.account.token,
     board: state.data.board,
     lanes: state.data.swimlanes,
     boards: state.data.boards
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   changeBoard: (board) => {
     dispatch(Actions.changeBoard(board));
   },

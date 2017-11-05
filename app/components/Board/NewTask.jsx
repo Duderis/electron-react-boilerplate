@@ -13,12 +13,11 @@ export default class NewTask extends React.Component {
   }
 
   updateLane(body) {
-    console.log(body);
     const tasks = this.props.lane.tasks || [];
     put('lane', (...stuff) => console.log(stuff), {
       ...this.props.lane,
       tasks: [...tasks, body._id]
-    }, this.props.lane.laneId);
+    }, this.props.lane.laneId, this.props.token);
   }
 
   handleSubmit(e) {
@@ -26,7 +25,7 @@ export default class NewTask extends React.Component {
     post('task', (err, res, body) => this.updateLane(JSON.parse(body)), {
       ...this.state,
       parentSwimlane: this.props.lane._id
-    });
+    }, this.props.token);
     this.props.finishField();
   }
 

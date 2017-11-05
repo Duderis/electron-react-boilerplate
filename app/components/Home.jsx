@@ -19,17 +19,22 @@ export default class Home extends Component {
     this.drawContent = this.drawContent.bind(this);
   }
 
-  loadAllData() {
-    get('team', (err, res, body) => { this.props.loadTeams(JSON.parse(body)); });
-    get('user', (err, res, body) => { this.props.loadUsers(JSON.parse(body)); });
-    get('task', (err, res, body) => { this.props.loadTasks(JSON.parse(body)); });
-    get('board', (err, res, body) => { this.props.loadBoards(JSON.parse(body)); });
-    get('lane', (err, res, body) => { this.props.loadLanes(JSON.parse(body)); });
+  componentDidMount() {
+    if (!this.props.token) {
+      this.props.history.push('/');
+    } else {
+      this.loadAllData();
+    }
   }
 
-  componentDidMount() {
-    this.loadAllData();
+  loadAllData() {
+    get('team', (err, res, body) => { this.props.loadTeams(JSON.parse(body)); }, false, this.props.token);
+    get('user', (err, res, body) => { this.props.loadUsers(JSON.parse(body)); }, false, this.props.token);
+    get('task', (err, res, body) => { this.props.loadTasks(JSON.parse(body)); }, false, this.props.token);
+    get('board', (err, res, body) => { this.props.loadBoards(JSON.parse(body)); }, false, this.props.token);
+    get('lane', (err, res, body) => { this.props.loadLanes(JSON.parse(body)); }, false, this.props.token);
   }
+
 
   switchTab(ele: Object) {
     return () => { this.props.switchTab(ele); };

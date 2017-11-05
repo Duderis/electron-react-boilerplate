@@ -4,6 +4,7 @@ import Actions from '../actions/actions';
 
 function mapStateToProps(state) {
   return {
+    token: state.account.token,
     tasks: state.data.tasks,
     activeTab: state.tab.activeTab
   };

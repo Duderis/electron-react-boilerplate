@@ -57,8 +57,6 @@ const oauth2WindowParams = {
   }
 };
 
-const myOauth2 = electronOauth2(oauthConfig, oauth2WindowParams);
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -103,7 +101,12 @@ app.on('ready', async () => {
   menuBuilder.buildMenu();
 });
 
-ipcMain.on('my-oauth', (event) => {
+ipcMain.on('my-oauth', (event, client) => {
+  const myOauth2 = electronOauth2({
+    ...oauthConfig,
+    clientId: client.id,
+    clientSecret: client.secret
+  }, oauth2WindowParams);
   myOauth2.getAccessToken({})
     .then((token) => {
       try {
@@ -123,9 +126,6 @@ ipcMain.on('read-token', (event) => {
 });
 
 ipcMain.on('read-user', (event) => {
-  const readUser = fs.readFileSync('.user', 'utf-8');
-});
-
-ipcMain.on('write-user', (event, user) => {
-  console.log(user);
+  const readUser = JSON.parse(fs.readFileSync('user.json', 'utf-8'));
+  event.sender.send('read-user-reply', readUser);
 });

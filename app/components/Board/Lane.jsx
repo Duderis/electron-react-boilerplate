@@ -4,7 +4,7 @@ import _ from 'lodash';
 import styles from './Board.css';
 import Task from '../../containers/Task';
 import { put } from '../../utils/requestFunctions';
-import NewTask from './NewTask';
+import NewTask from '../../containers/NewTask';
 
 const drawTasks = tasks => _.map(tasks, task =>
   <Task key={shortid.generate()} task={task} />);
@@ -27,7 +27,7 @@ export default class Lane extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    put('lane', () => { }, { ...this.props.lane, name: this.state.name }, this.props.lane.laneId);
+    put('lane', () => { }, { ...this.props.lane, name: this.state.name }, this.props.lane.laneId, this.props.token);
     this.props.update(this.state.name, this.props.lane.laneId);
     this.setState({ ...this.state, editing: false });
   }

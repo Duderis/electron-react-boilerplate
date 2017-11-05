@@ -19,12 +19,12 @@ export default class TaskView extends Component {
   }
 
   componentDidMount() {
-    get('task', (res, err, body) => this.loadTask(JSON.parse(body)), this.props.activeTab.id);
+    get('task', (res, err, body) => this.loadTask(JSON.parse(body)), this.props.activeTab.id, this.props.token);
   }
 
   componentDidUpdate() {
     if (this.state.taskId !== this.props.activeTab.id) {
-      get('task', (res, err, body) => this.loadTask(JSON.parse(body)), this.props.activeTab.id);
+      get('task', (res, err, body) => this.loadTask(JSON.parse(body)), this.props.activeTab.id, this.props.token);
     }
   }
 
@@ -50,7 +50,7 @@ export default class TaskView extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    put('task', (res, err, body) => this.reloadTasks(JSON.parse(body)), this.state, this.props.activeTab.id);
+    put('task', (res, err, body) => this.reloadTasks(JSON.parse(body)), this.state, this.props.activeTab.id, this.props.token);
   }
 
   handleInputChange(e) {

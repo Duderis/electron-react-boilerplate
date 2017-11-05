@@ -33,8 +33,8 @@ export default class Team extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.team._id
-      ? put('team', (err, res, body) => this.reloadTeam(JSON.parse(body)), this.props.team, this.props.team.teamId)
-      : post('team', (err, res, body) => this.loadNewTeam(JSON.parse(body)), this.props.team);
+      ? put('team', (err, res, body) => this.reloadTeam(JSON.parse(body)), this.props.team, this.props.team.teamId, this.props.token)
+      : post('team', (err, res, body) => this.loadNewTeam(JSON.parse(body)), this.props.team, this.props.token);
   }
 
   handleSelect(id) {
@@ -51,7 +51,7 @@ export default class Team extends Component {
       onClick={() => this.handleSelect(element.teamId)}
       key={shortid.generate()}
     >{element.name}
-                                        </li>));
+    </li>));
   }
 
   clearTeam() {
@@ -96,7 +96,7 @@ export default class Team extends Component {
       return (<li key={shortid.generate()}>
         {element[identifier]}
         {button}
-              </li>);
+      </li>);
     });
   }
 

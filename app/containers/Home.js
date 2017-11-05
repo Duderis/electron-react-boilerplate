@@ -5,6 +5,7 @@ import * as tabActions from '../actions/tabs';
 
 function mapStateToProps(state) {
   return {
+    token: state.account.token,
     users: state.data.users,
     activeTab: state.tab.activeTab,
     openTasks: state.tab.openTasks
