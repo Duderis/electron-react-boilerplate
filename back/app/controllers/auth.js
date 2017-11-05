@@ -76,5 +76,10 @@ passport.use(new BearerStrategy(
 module.exports = {
   isAuthenticated : passport.authenticate(['basic','bearer'], { session: false }),
   isClientAuthenticated : passport.authenticate('client-basic', { session: false }),
-  isBearerAuthenticated : passport.authenticate('bearer', { session: false })
+  isBearerAuthenticated : passport.authenticate('bearer', { session: false }),
+  dummy: function (req, res) {
+    if( req.user._id ){
+      res.json("ok");
+    }
+  }
 }

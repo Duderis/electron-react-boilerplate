@@ -14,6 +14,8 @@ const getUrl = (type) => {
       return 'http://localhost:8080/api/swimlanes';
     case 'user':
       return 'http://localhost:8080/api/users';
+    case 'client':
+      return 'http://localhost:8080/api/clients';
     default:
       return '';
   }

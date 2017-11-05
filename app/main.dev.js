@@ -121,3 +121,11 @@ ipcMain.on('read-token', (event) => {
   const readToken = fs.readFileSync('.mytoken', 'utf-8');
   event.sender.send('read-token-reply', readToken);
 });
+
+ipcMain.on('read-user', (event) => {
+  const readUser = fs.readFileSync('.user', 'utf-8');
+});
+
+ipcMain.on('write-user', (event, user) => {
+  console.log(user);
+});
