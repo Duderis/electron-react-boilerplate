@@ -1,8 +1,20 @@
 import { connect } from 'react-redux';
+import Actions from '../actions/actions';
 import NewTask from '../components/Board/NewTask';
 
-function mapStateToProps(state) {
-  return { token: state.account.token };
-}
+const mapStateToProps = state => ({
+  token: state.account.token,
+  tasks: state.data.tasks,
+  lanes: state.data.swimlanes
+});
 
-export default connect(mapStateToProps)(NewTask);
+const mapDispatchToProps = dispatch => ({
+  loadLanes: (lanes) => {
+    dispatch(Actions.loadLanes(lanes));
+  },
+  loadTasks: (tasks) => {
+    dispatch(Actions.loadTasks(tasks));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewTask);

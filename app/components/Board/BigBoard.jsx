@@ -83,7 +83,10 @@ export default class BigBoard extends Component {
             onClick={() => this.setState({ newLane: !this.state.newLane })}
             style={{ width: '10px' }}
           >
-            <i className={this.state.newLane ? 'fa fa-minus-circle' : 'fa fa-plus-circle'} />
+            <i
+              className={this.state.newLane ? 'fa fa-minus-circle' : 'fa fa-plus-circle'}
+              style={{ margin: '0 0 0 10px' }}
+            />
           </div>
         </div>);
     }

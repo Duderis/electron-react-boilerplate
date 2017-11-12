@@ -14,3 +14,9 @@ export const removeTab = tab => ({
   tab,
   type: Constants.REMOVE_TAB
 });
+
+export const modifyTab = (id, name) => ({
+  id,
+  name,
+  type: Constants.MODIFY_TAB
+});

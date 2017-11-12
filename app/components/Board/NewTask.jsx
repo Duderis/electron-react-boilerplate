@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import styles from './Board.css';
 import { post, put } from '../../utils/requestFunctions';
 
@@ -14,10 +15,24 @@ export default class NewTask extends React.Component {
 
   updateLane(body) {
     const tasks = this.props.lane.tasks || [];
-    put('lane', (...stuff) => console.log(stuff), {
-      ...this.props.lane,
-      tasks: [...tasks, body._id]
-    }, this.props.lane.laneId, this.props.token);
+    put(
+      'lane', (err, res, innerBody) => {
+        this.props.loadLanes(_.map(this.props.lanes, (lane) => {
+          if (lane._id === this.props.lane._id) {
+            return {
+              ...lane,
+              tasks: JSON.parse(innerBody).tasks
+            };
+          }
+          return lane;
+        }));
+        this.props.loadTasks([...this.props.tasks, body]);
+      },
+      {
+        ...this.props.lane,
+        tasks: [...tasks, body._id]
+      }, this.props.lane.laneId, this.props.token
+    );
   }
 
   handleSubmit(e) {

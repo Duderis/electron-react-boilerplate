@@ -18,6 +18,20 @@ export default function tab(state = initialState, action) {
         ...state,
         openTasks: _.filter(state.openTasks, task => _.isEqual(task, action.tab))
       };
+    case Constants.MODIFY_TAB:
+      return {
+        ...state,
+        openTasks: _.map(state.openTasks, (task) => {
+          if (task.id === action.id) {
+            return {
+              id: action.id,
+              name: action.name,
+              type: 'task'
+            };
+          }
+          return task;
+        })
+      };
     default:
       return state;
   }

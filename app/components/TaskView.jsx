@@ -46,6 +46,7 @@ export default class TaskView extends Component {
       return innerTask;
     }));
     this.loadTask(task);
+    this.props.modifyTab(this.props.activeTab.id, task.name);
   }
 
   handleSubmit(e) {
