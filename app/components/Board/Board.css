@@ -11,6 +11,7 @@
   border-radius: 2px;
   padding: 5px;
   margin: 5px 0;
+  width: 200px;
 }
 
 .listBlock li {
@@ -24,7 +25,6 @@
 
 .listBlock li > ul {
   color: #606060;
-  margin-left: 20px;
 }
 
 .bigBoard {
@@ -38,6 +38,7 @@
   padding: 10px;
   width: 100%;
   align-items: center;
+  min-height: 400px;
 }
 
 hr {
@@ -50,4 +51,63 @@ hr {
 .selected {
   background-color: #4920d0;
   color: #fff;
+}
+
+.formBlock {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.formInnerBlock {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.formInnerBlock button {
+  width: 50px;
+}
+
+input,
+textarea {
+  padding: 6px;
+}
+
+.bigMessage {
+  font-size: 50px;
+  color: rgb(147, 147, 147);
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0 10px;
+  border-right: 3px solid #000;
+}
+
+.lane:last-child {
+  border-right: none;
+}
+
+.laneTitle {
+  font-size: 1.1em;
+}
+
+.taskBlock {
+  border: 2px solid #000;
+  margin: 0 0 10px;
+  max-width: 150px;
+}
+
+.taskTitle {
+  border-bottom: 2px solid #000;
+}
+
+.taskTitle,
+.taskDescription {
+  padding: 5px;
 }

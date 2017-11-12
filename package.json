@@ -182,7 +182,6 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
     "electron-oauth2": "^3.0.0",
-    "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-node": "^5.2.1",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",

@@ -19,7 +19,6 @@ export default class Task extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const { name, description } = this.props.task;
     return (
       <div className={styles.taskBlock} onClick={() => this.handleClick()}>
@@ -28,7 +27,7 @@ export default class Task extends React.Component {
         </div>
         <div className={styles.taskDescription}>
           {description && description.length >= 50
-            ? description.slice(0, 50)
+            ? `${description.slice(0, 50)}...`
             : description}
         </div>
       </div>);

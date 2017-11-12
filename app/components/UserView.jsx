@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import { ipcRenderer } from 'electron';
 import styles from './Team.css';
 import NewUser from './NewUser';
-import { ipcRenderer } from 'electron';
 
 export default class UserView extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   oauth2Button() {
     ipcRenderer.send('my-oauth', 'getToken');
     ipcRenderer.once('my-oauth-reply', (event, accessToken) => {

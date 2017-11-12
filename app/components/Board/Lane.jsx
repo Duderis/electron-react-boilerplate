@@ -62,7 +62,7 @@ export default class Lane extends Component {
               ? ''
               : (
                 <div onClick={() => this.setState({ newTask: !this.state.newTask })}>
-                  <i className="fa fa-plus-circle" />
+                  <i className={this.state.newTask ? 'fa fa-minus-circle' : 'fa fa-plus-circle'} />
                 </div>)}
         </div>
       </div>

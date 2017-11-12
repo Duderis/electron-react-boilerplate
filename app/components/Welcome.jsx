@@ -50,7 +50,6 @@ export default class Welcome extends Component {
       case 4:
       case 3:
         ipcRenderer.once('my-oauth-reply', (event, accessToken) => {
-          console.log(accessToken.access_token.value);
           this.props.setToken(accessToken.access_token.value);
           this.setState({ ...this.state, step: 5 });
         });

@@ -134,3 +134,16 @@ hr {
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
 }
+
+.clearButton {
+  padding: 0 5px 0 0;
+  text-decoration: underline;
+  color: rgb(105, 105, 105);
+  cursor: pointer;
+}
+
+.label {
+  padding: 0 5px;
+  font-style: italic;
+  font-size: 1.1em;
+}

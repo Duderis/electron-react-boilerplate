@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import styles from './Board.css';
+import styles2 from '../Team.css';
 import BigBoard from './BigBoard';
 import BoardNav from './BoardNav';
 import { post, put } from '../../utils/requestFunctions';
@@ -24,7 +26,7 @@ export default class Board extends Component {
 
   reloadBoard(body) {
     const { boards, board } = this.props;
-    const index = boards.findIndex(innerBoard => innerBoard._id === body._id);
+    const index = _.findIndex(boards, innerBoard => innerBoard._id === body._id);
     this.props.loadBoards([...boards.slice(0, index),
       { ...boards[index], ...body },
       ...boards.slice(index + 1)]);
@@ -39,10 +41,11 @@ export default class Board extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    this.props.board._id
-      ? put('board', (err, res, body) => this.reloadBoard(JSON.parse(body)), this.props.board, this.props.board.boardId, this.props.token)
-      : post('board', (err, res, body) => this.loadNewBoard(JSON.parse(body)), this.props.board, this.props.token);
+    if (this.props.board._id) {
+      put('board', (err, res, body) => this.reloadBoard(JSON.parse(body)), this.props.board, this.props.board.boardId, this.props.token);
+    } else {
+      post('board', (err, res, body) => this.loadNewBoard(JSON.parse(body)), this.props.board, this.props.token);
+    }
   }
 
   render() {
@@ -65,22 +68,23 @@ export default class Board extends Component {
             loadLanes={this.props.loadLanes}
           />
         </div>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <div><label>Board Name</label>
-              <span onClick={this.props.clearBoard}> x </span>
-              <input
-                type="text"
-                value={this.props.board.name}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div><label>Board Description</label>
-              <textarea
-                value={this.props.board.description}
-                onChange={this.handleDescChange}
-              />
-            </div>
+        <div className={styles.formBlock}>
+          <form onSubmit={this.handleSubmit} className={styles.formInnerBlock}>
+            <div className={styles2.clearButton} onClick={this.props.clearBoard}>Clear</div>
+            <label className={styles2.label}>Board Name:</label>
+            <input
+              type="text"
+              value={this.props.board.name}
+              onChange={this.handleInputChange}
+              placeholder="Enter Board name"
+            />
+            <label className={styles2.label}>Board Description:</label>
+            <textarea
+              placeholder="Enter Board description"
+              value={this.props.board.description}
+              onChange={this.handleDescChange}
+            />
+            <button type="submit" className={styles2.btn}>Save</button>
           </form>
         </div>
       </div>

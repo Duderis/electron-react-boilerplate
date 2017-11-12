@@ -23,7 +23,7 @@ export default class BigBoard extends Component {
   handleLaneChange: Function;
 
   handleLaneChange(name, laneId) {
-    this.props.loadLanes(this.props.lanes.map((lane) => {
+    this.props.loadLanes(_.map(this.props.lanes, (lane) => {
       if (laneId === lane.laneId) {
         return { ...lane, name };
       }
@@ -32,15 +32,15 @@ export default class BigBoard extends Component {
   }
 
   drawLanes() {
-    const newMap = (this.props.board.lanes.length > 0 ? this.props.lanes.filter(lane =>
-      this.props.board.lanes.findIndex(inner =>
-        inner === lane._id) > -1) : []).map(lane => (
+    const newMap = _.map((this.props.board.lanes.length > 0 ? _.filter(this.props.lanes, lane =>
+      _.findIndex(this.props.board.lanes, inner =>
+        inner === lane._id) > -1) : []), lane => (
           <Lane
             key={shortid.generate()}
             lane={lane}
             update={this.handleLaneChange}
-            tasks={this.props.tasks.filter(task =>
-              (lane.tasks ? lane.tasks.findIndex(inner =>
+            tasks={_.filter(this.props.tasks, task =>
+              (lane.tasks ? _.findIndex(lane.tasks, inner =>
                 inner === task._id) > -1 : false))}
           />));
     return newMap;
@@ -55,6 +55,9 @@ export default class BigBoard extends Component {
       parentBoard: this.props.board._id,
       parentSwimlane: null
     });
+    if (!taskArr.length) {
+      return '';
+    }
     return (
       <Lane
         lane={{
@@ -75,12 +78,20 @@ export default class BigBoard extends Component {
             ? (
               <NewLane finishField={this.finishField} />)
             : ''}
-          <div onClick={() => this.setState({ newLane: !this.state.newLane })}>
-            <i className="fa fa-plus-circle" />
-          </div>
           {this.renderUnassigned()}
+          <div
+            onClick={() => this.setState({ newLane: !this.state.newLane })}
+            style={{ width: '10px' }}
+          >
+            <i className={this.state.newLane ? 'fa fa-minus-circle' : 'fa fa-plus-circle'} />
+          </div>
         </div>);
     }
-    return (<div className={styles.bigBoard} />);
+    return (
+      <div className={styles.bigBoard}>
+        <span className={styles.bigMessage}>
+          No Board selected
+        </span>
+      </div>);
   }
 }

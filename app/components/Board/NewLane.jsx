@@ -60,6 +60,7 @@ export default class NewLane extends Component {
         <div className={styles.laneTitle}>
           <form onSubmit={this.handleSubmit}>
             <input
+              placeholder="Enter new Lane name"
               onChange={this.handleChange}
               value={this.state.name}
               type="text"

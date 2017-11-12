@@ -31,9 +31,10 @@ export default class NewTask extends React.Component {
 
   render() {
     return (
-      <div className={styles.taskBlock}>
+      <div>
         <form onSubmit={this.handleSubmit}>
           <input
+            placeholder="Enter new Task name"
             onChange={e => this.setState({ name: e.target.value })}
             value={this.state.name}
           />
