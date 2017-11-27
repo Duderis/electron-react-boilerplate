@@ -4,9 +4,6 @@ var authController = require('../controllers/auth.js');
 
 var router = express.Router();
 
-router.route('/api/auth')
-  .get(authController.isAuthenticated, authController.dummy);
-
 router.route('/api/oauth2/authorize')
     .get(authController.isAuthenticated, oauth2Controller.authorization)
     .post(authController.isAuthenticated, oauth2Controller.decision);

@@ -57,3 +57,5 @@ app.use(oauth2);
 
 app.listen(port);
 console.log(`Server on ${port}`);
+
+module.exports = app;
