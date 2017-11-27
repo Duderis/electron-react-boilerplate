@@ -16,19 +16,19 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connect('mongodb://localhost:27017/solid_disco_test', { useMongoClient: true });
 autoIncrement.initialize(db);
 
-const Board = require('../app/models/board');
+const Swimlane = require('../app/models/swimlane');
 
-describe('Boards', () => {
+describe('Swimlanes', () => {
   after((done) => {
-    Board.remove({}, (err) => {
+    Swimlane.remove({}, (err) => {
       done();
     });
   });
 
-  describe(' GET boards', () => {
-    it('it should GET all the boards', (done) => {
+  describe(' GET swimlanes', () => {
+    it('it should GET all the swimlanes', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/swimlanes')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -39,66 +39,63 @@ describe('Boards', () => {
     });
   });
 
-  describe(' POST board', () => {
-    it('it should POST a board', (done) => {
-      const board = {
-        name: 'testboard',
-        description: 'testdesc'
+  describe(' POST swimlane', () => {
+    it('it should POST a swimlane', (done) => {
+      const swimlane = {
+        name: 'testlane'
       }
       chai.request(server)
-        .post('/api/boards')
+        .post('/api/swimlanes')
         .set('Authorization', 'Bearer ' + token)
-        .send(board)
+        .send(swimlane)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('description');
+          res.body.should.have.property('name');
           done();
         });
     });
-    it('it should not Post a board', (done) => {
-      const board = {
-        name: 'testboard'
+    it('it should not Post a swimlane', (done) => {
+      const swimlane = {
       };
       chai.request(server)
-        .post('/api/boards')
+        .post('/api/swimlanes')
         .set('Authorization', 'Bearer ' + token)
-        .send(board)
+        .send(swimlane)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('errors');
-          res.body.errors.should.have.property('description');
-          res.body.errors.description.should.have.property('kind').eql('required');
+          res.body.errors.should.have.property('name');
+          res.body.errors.name.should.have.property('kind').eql('required');
           done();
         });
     });
   });
 
-  const board = new Board({ name: 'cooltestboard', description: 'cooltestdesc'});
+  const swimlane = new Swimlane({ name: 'cooltestswimlane'});
 
-  describe(' GET/:id board', () => {
-    it('it should GET a board by the given id', (done) => {
-      board.save((err, board) => {
+  describe(' GET/:id swimlane', () => {
+    it('it should GET a swimlane by the given id', (done) => {
+      swimlane.save((err, swimlane) => {
         chai.request(server)
-          .get('/api/boards/'+ board.boardId)
+          .get('/api/swimlanes/'+ swimlane.laneId)
           .set('Authorization', 'Bearer ' + token)
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
             res.body.should.have.property('name');
-            res.body.should.have.property('description');
-            res.body.should.have.property('boardId').eql(board.boardId);
+            res.body.should.have.property('laneId').eql(swimlane.laneId);
             done();
           });
       });
     });
   });
 
-  describe(' GET new boards', () => {
-    it('it should GET all the boards', (done) => {
+  describe(' GET new swimlanes', () => {
+    it('it should GET all the swimlanes', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/swimlanes')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -109,10 +106,10 @@ describe('Boards', () => {
     });
   });
 
-  describe(' PUT board', () => {
-    it('it should PUT the board', (done) => {
+  describe(' PUT swimlane', () => {
+    it('it should PUT the swimlane', (done) => {
       chai.request(server)
-        .put('/api/boards/'+ board.boardId)
+        .put('/api/swimlanes/'+ swimlane.laneId)
         .set('Authorization', 'Bearer ' + token)
         .send({ name: 'newtestname'})
         .end((err,res) => {
@@ -124,24 +121,24 @@ describe('Boards', () => {
     });
   });
 
-  describe(' DELETE board', () => {
-    it('it should DELETE the board', (done) => {
+  describe(' DELETE swimlane', () => {
+    it('it should DELETE the swimlane', (done) => {
       chai.request(server)
-        .delete('/api/boards/'+ board.boardId)
+        .delete('/api/swimlanes/'+ swimlane.laneId)
         .set('Authorization', 'Bearer ' + token)
         .end((err,res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('deleted board');
+          res.body.should.have.property('message').eql('deleted lane');
           done();
         });
     });
   });
 
-  describe(' GET 1 less board', () => {
-    it('it should GET all the boards, one board less then previous one', (done) => {
+  describe(' GET 1 less swimlane', () => {
+    it('it should GET all the swimlanes, one swimlane less then previous one', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/swimlanes')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);

@@ -41,9 +41,12 @@ module.exports = {
     });
   },
   deleteTask : function (req, res) {
-    Task.findOneAndRemove({ taskId: req.params.taskId }, (err, ele) => {
+    Task.findOneAndRemove({ taskId: req.params.task_id }, (err, ele) => {
       ele.remove();
-      if (err) { res.send(err); } else { res.json({ message: `Task with id ${req.params.task_id} was successfully removed.` }); }
+      if (err) {
+        res.send(err);
+      } else {
+        res.json({ message: 'task deleted'}); }
     });
   }
 }

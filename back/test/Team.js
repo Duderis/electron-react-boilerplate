@@ -16,19 +16,19 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connect('mongodb://localhost:27017/solid_disco_test', { useMongoClient: true });
 autoIncrement.initialize(db);
 
-const Board = require('../app/models/board');
+const Team = require('../app/models/team');
 
-describe('Boards', () => {
+describe('Teams', () => {
   after((done) => {
-    Board.remove({}, (err) => {
+    Team.remove({}, (err) => {
       done();
     });
   });
 
-  describe(' GET boards', () => {
-    it('it should GET all the boards', (done) => {
+  describe(' GET teams', () => {
+    it('it should GET all the teams', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/teams')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -39,66 +39,63 @@ describe('Boards', () => {
     });
   });
 
-  describe(' POST board', () => {
-    it('it should POST a board', (done) => {
-      const board = {
-        name: 'testboard',
-        description: 'testdesc'
+  describe(' POST team', () => {
+    it('it should POST a team', (done) => {
+      const team = {
+        name: 'testteam'
       }
       chai.request(server)
-        .post('/api/boards')
+        .post('/api/teams')
         .set('Authorization', 'Bearer ' + token)
-        .send(board)
+        .send(team)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('description');
+          res.body.should.have.property('name');
           done();
         });
     });
-    it('it should not Post a board', (done) => {
-      const board = {
-        name: 'testboard'
+    it('it should not Post a team', (done) => {
+      const team = {
       };
       chai.request(server)
-        .post('/api/boards')
+        .post('/api/teams')
         .set('Authorization', 'Bearer ' + token)
-        .send(board)
+        .send(team)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('errors');
-          res.body.errors.should.have.property('description');
-          res.body.errors.description.should.have.property('kind').eql('required');
+          res.body.errors.should.have.property('name');
+          res.body.errors.name.should.have.property('kind').eql('required');
           done();
         });
     });
   });
 
-  const board = new Board({ name: 'cooltestboard', description: 'cooltestdesc'});
+  const team = new Team({ name: 'cooltestteam'});
 
-  describe(' GET/:id board', () => {
-    it('it should GET a board by the given id', (done) => {
-      board.save((err, board) => {
+  describe(' GET/:id team', () => {
+    it('it should GET a team by the given id', (done) => {
+      team.save((err, team) => {
         chai.request(server)
-          .get('/api/boards/'+ board.boardId)
+          .get('/api/teams/'+ team.teamId)
           .set('Authorization', 'Bearer ' + token)
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
             res.body.should.have.property('name');
-            res.body.should.have.property('description');
-            res.body.should.have.property('boardId').eql(board.boardId);
+            res.body.should.have.property('teamId').eql(team.teamId);
             done();
           });
       });
     });
   });
 
-  describe(' GET new boards', () => {
-    it('it should GET all the boards', (done) => {
+  describe(' GET new teams', () => {
+    it('it should GET all the teams', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/teams')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -109,10 +106,10 @@ describe('Boards', () => {
     });
   });
 
-  describe(' PUT board', () => {
-    it('it should PUT the board', (done) => {
+  describe(' PUT team', () => {
+    it('it should PUT the team', (done) => {
       chai.request(server)
-        .put('/api/boards/'+ board.boardId)
+        .put('/api/teams/'+ team.teamId)
         .set('Authorization', 'Bearer ' + token)
         .send({ name: 'newtestname'})
         .end((err,res) => {
@@ -124,24 +121,24 @@ describe('Boards', () => {
     });
   });
 
-  describe(' DELETE board', () => {
-    it('it should DELETE the board', (done) => {
+  describe(' DELETE team', () => {
+    it('it should DELETE the team', (done) => {
       chai.request(server)
-        .delete('/api/boards/'+ board.boardId)
+        .delete('/api/teams/'+ team.teamId)
         .set('Authorization', 'Bearer ' + token)
         .end((err,res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('deleted board');
+          res.body.should.have.property('message').eql('deleted Team');
           done();
         });
     });
   });
 
-  describe(' GET 1 less board', () => {
-    it('it should GET all the boards, one board less then previous one', (done) => {
+  describe(' GET 1 less team', () => {
+    it('it should GET all the teams, one team less then previous one', (done) => {
       chai.request(server)
-        .get('/api/boards')
+        .get('/api/teams')
         .set('Authorization', 'Bearer ' + token)
         .end((err, res) => {
           res.should.have.status(200);
